@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" class="Fnf-sans-serif -HeaderH16u">
+  <head>
+    <meta charset="UTF-8" />
+	  <link rel="icon" href="src/assets/img/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>playground</title>
+    <link rel="stylesheet" href="./src/assets/style/style.css" />
+    <script type="module" src="/src/components/style-tab.js"></script>
+  </head>
+  <body class="P0 M0 H100vh">
+
+
+    <header class="W100p H-$headerH Ps-a T0 L0 Mxh20u D-g Gtc1fr;1.2fr;1fr P2u;0 Bgc-$core700 ">
+
+      <!-- Logo part-->
+      <div class="P1u;3u Flg0.25 D-f Ai-c">
+        <div class=" D-f Ai-fe W100p">
+          <img class="D W25u" alt="mlut logo" src="src/assets/img/mlut.png">
+          <span class="D-ib Fns5u C-$accent700">Playground</span>
+        </div>
+      </div>
+
+      <!-- Navbar-->
+
+      <nav class="H100p Flg0.5 D-f Ai-c Jc-c"> 
+        <ul class="Lsst-n D-f Jc-c Gap8u Ai-c P0 Fns5u M0">
+          <li class="M0">
+            <a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h Tsd-$shortTs Fnw550"> Landing</a>
+          </li>
+          <li  class="M0">
+            <a href="https://github.com/mlutcss/mlut" class="Txd-n C-$accent800 C-$brand_h Tsd-$shortTs Fnw550"> Docs</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Tools -->
+      <div class="Flg0.25 H100p">
+        
+      </div>
+    </header>
+
+    <main class="D-f Ai-str H100vh Pt-$headerH ">
+      <!-- Left part-->
+
+      <div class="W50p D-f Fld-c ">
+
+        <!-- HTML sample's wrapper-->
+        <div class="H50p D-f Fld-c">
+          <!-- Header-->
+          <div class="H12u P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+            <span class="C-$brand Fnw600"> HTML</span>
+            <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h Tsd-$shortTs -Ctx">
+              <svg class="-Sz100p Fi-n St-$accent800 Tsd-ih ^:h:_St-$core800 Stw2" alt="Copy sample">
+                <use href="src/assets/img/icons.svg#copy"></use>
+              </svg>
+            </button>
+          </div>
+          <!-- HTML part's body-->
+          <div class="Flg1">
+            <textarea id="markup" placeholder="Enter HTML markup" 
+              class="D -Sz100p Bd-n Ol-n_f P4u Rs Bgc-$core700 C-$accent800"></textarea>
+          </div>
+        </div>
+      
+          <!-- CSS sample's wrapper-->
+        <div class="H50p D-f Fld-c -Ctx-wrapper">
+          <!-- Header-->
+          <div class="H12u P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+            <div class="D-f Jc-sb Gap5u C-$accent800">
+
+              <style-tab checked="checked" radioId="CSS" name="Style" text="CSS"> </style-tab>
+              <style-tab radioId="SCSS" name="Style" text="SCSS"> </style-tab>
+
+            </div>
+            <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h Tsd-$shortTs -Ctx-button">
+              <svg class="-Sz100p Fi-n St-$accent800 Tsd-ih ^button:h:_St-$core800 Stw2"
+                alt="Copy sample">
+                <use href="src/assets/img/icons.svg#copy"></use>
+              </svg>
+            </button>
+          </div>
+
+          <!-- CSS part's body-->
+
+          <div class="Flg1 C-$accent800">
+            <textarea id="css-area" placeholder="Enter CSS styles" data-type="style" 
+              class="D-n -Sz100p Bd-n Ol-n_f P4u Rs-n Bgc-$core700 C-$accent800"></textarea>
+            <textarea id="scss-area" placeholder="Enter SCSS styles" data-type="style"
+              class="D-n -Sz100p Bd-n Ol-n_f P4u Rs-n Bgc-$core700 C-$accent800"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- The right part-->
+      <div class="W50p D-f Fld-c ">
+        <!-- Preview part-->
+        <div class="Flg1 Bdl1;s;$accent700 D-f Fld-c">
+          <!-- Header-->
+          <div class="H12u Flg0 P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+            <span class="C-$brand Fnw600"> Preview</span>
+            <div>
+              <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h Tsd-$shortTs -Ctx">
+                <svg class="-Sz100p Fi-n St-$accent800 Tsd-ih ^:h:_St-$core800 Stw2" alt="restart">
+                  <use  href="src/assets/img/icons.svg#refresh"></use>
+                </svg>
+              </button>
+              <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h Tsd-$shortTs -Ctx">
+                <svg class="-Sz100p Fi-n St-$accent800 Tsd-ih ^:h:_St-$core800 Stw2"
+                alt="">
+                  <use href="src/assets/img/icons.svg#stretch"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Preview's Body -->
+
+          <iframe src="https://mlut.style/" class="W100p Flg1 Bd-n">
+
+          </iframe>
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>
