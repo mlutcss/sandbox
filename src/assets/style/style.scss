@@ -1,9 +1,7 @@
 @use 'mlut' with (
-  $jit: (
-    "output": "src/assets/style/style.css",
-    "content": ["index.html", "src/**/*.js"],
-    "minify": true
-  ),
+	$breakpoints: (
+		xxxl: 1900px,
+	),
 );
 
 html {
@@ -27,4 +25,8 @@ html {
     --ml-accent800:#878c99;
     --ml-accent700: #7f838f;
   }
+}
+
+style-tab {
+	font-size: mlut.uv('Fns8u');
 }

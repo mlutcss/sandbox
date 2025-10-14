@@ -1,11 +1,9 @@
-
 import { vite } from '@mlut/plugins';
 import { defineConfig } from 'vite';
 
 const mlut = vite({
-	input: './src/assets/style/style.scss',
-  output: "./src/assets/style/style.css",
-  content: ["index.html", "src/**/*.js"],
+	input: 'src/assets/style/style.scss',
+  output: "dist/assets/style.css",
 	minify: true,
 });
 
