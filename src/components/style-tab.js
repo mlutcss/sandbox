@@ -30,10 +30,7 @@ export class StyleTab extends LitElement {
   }
 
   displayTextArea(){
-
     const textareas = document.querySelectorAll('textarea[data-type="style"]')
-
-
     textareas.forEach((el,index) => {
       if (el.id === `${this.radioId.toLowerCase()}-area`){
         el.classList.add('D')

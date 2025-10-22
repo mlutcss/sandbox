@@ -1,8 +1,4 @@
-@use 'mlut' with (
-	$breakpoints: (
-		xxxl: 1900px,
-	),
-);
+@use '@mlut/core';
 
 html {
   --ml-shortTs:0.3s;
@@ -25,8 +21,4 @@ html {
     --ml-accent800:#878c99;
     --ml-accent700: #7f838f;
   }
-}
-
-style-tab {
-	font-size: mlut.uv('Fns8u');
 }
