@@ -6,6 +6,8 @@ on:
       - '.github/workflows/lint.yml'
       - 'package.json'
       - 'package-lock.json'
+      - 'src/'
+      - 'vite.config.js'
     branches:
       - '**'
   push:

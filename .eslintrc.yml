@@ -4,7 +4,6 @@ extends:
 parserOptions:
   ecmaVersion: latest
   sourceType: module
-  tsconfigRootDir: "./"
 env:
   browser: true
 rules:
