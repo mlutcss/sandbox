@@ -3,12 +3,12 @@ import { defineConfig } from 'vite';
 
 const mlut = vite({
 	input: 'src/assets/style/style.scss',
-  output: "src/assets/style/style.css",
+	output: 'src/assets/style/style.css',
 	minify: true,
 });
 
 export default defineConfig(() => {
 	return {
 		plugins: [mlut],
-	}
+	};
 });
