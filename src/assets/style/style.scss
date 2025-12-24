@@ -4,6 +4,11 @@ html {
 	--ml-brand:#f0438c;
 }
 
+* {
+	scrollbar-color: var(--ml-accent700) var(--ml-core800);
+}
+
+
 @media (prefers-color-scheme: light){
   html {
     --ml-core800: #f0f0f1;

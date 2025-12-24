@@ -1,13 +1,16 @@
 <!doctype html>
-<html lang="en" class="Fnf-mUss -HeaderH16u">
+<html lang="en" class="Fnf-mUss -HeaderH14u -SectionHeaderH10u">
   <head>
     <meta charset="UTF-8" />
 	  <link rel="icon" href="src/assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mlut playground</title>
     <link rel="stylesheet" href="/src/assets/style/style.css" />
+		<script type="module" src="/src/components/code-editor.js"></script>
     <script type="module" src="/src/components/style-tab.js"></script>
-  </head>
+		<script type="module" src="/src/components/code-preview.js"></script>
+		<script type="module" src="/src/components/main-comp.js"></script>
+	</head>
   <body class="P0 M0 H100vh">
     <header class="W100p H-$headerH Ps-a T0 L0 Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
       <!-- Logo part-->
@@ -20,7 +23,7 @@
 
       <!-- Navbar-->
 
-      <nav class=" D-f Ai-c Jc-fe P1u;3u"> 
+      <nav class=" D-f Ai-c Jc-fe P1u;3u">
         <ul class="Lsst-n D-f Jc-c Gap4u Ai-c P0 Fns5u M0">
           <li class="M0">
             <a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Main</a>
@@ -33,77 +36,82 @@
 
     </header>
 
-    <main class="D-f Ai-str H100vh Pt-$headerH ">
+		<main-comp>
+			<main class="D-f Ai-str H100vh Pt-$headerH ">
 
-      <!-- Left part-->
-      <div class="W50p D-f Fld-c ">
+				<!-- Left part-->
+				<div class="W50p D-f Fld-c ">
 
-        <!-- HTML sample's wrapper-->
-        <div class="H50p D-f Fld-c">
-          <!-- Header-->
-          <div class="H12u P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
-            <span class="C-$brand Fnw600"> HTML</span>
-            <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx">
-              <svg class="-Sz100p St-$accent800 Tsd-ih ^:h:_St-$core800">
-                <use href="src/assets/img/icons.svg#copy"></use>
-              </svg>
-            </button>
-          </div>
-          <!-- HTML part's body-->
-          <div class="Flg1">
-            <textarea id="markup" placeholder="Enter HTML markup" 
-              class="D -Sz100p Bd-n Ol-n_f P4u Rs Bgc-$core700 C-$accent800"></textarea>
-          </div>
-        </div>
-      
-        <!-- CSS sample's wrapper-->
-        <div class="H50p D-f Fld-c -Ctx-wrapper">
-          <!-- Header-->
-          <div class="H12u P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
-            <div class="D-f Jc-sb Gap5u C-$accent800">
-              <style-tab checked="checked" radioId="CSS" name="Style" text="CSS"> </style-tab>
-              <style-tab radioId="SCSS" name="Style" text="SCSS"> </style-tab>
-            </div>
-            <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx-button">
-              <svg class="-Sz100p St-$accent800 Tsd-ih ^button:h:_St-$core800">
-                <use href="src/assets/img/icons.svg#copy"></use>
-              </svg>
-            </button>
-          </div>
+					<!-- HTML sample's wrapper-->
+					<div class="H50p D-f Fld-c">
+						<!-- Header-->
+						<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+							<span class="C-$brand Fnw600"> HTML</span>
+							<button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx">
+								<svg class="-Sz100p St-$accent800 Tsd-ih ^:h:_St-$core800">
+									<use href="src/assets/img/icons.svg#copy"></use>
+								</svg>
+							</button>
+						</div>
+						<!-- HTML part's body-->
+						<div class="H-calc(100%;-;var(--ml-sectionHeaderH)) Bgc-$core700">
+							<code-editor lang="html"></code-editor>
+						</div>
+					</div>
 
-          <!-- CSS part's body-->
+					<!-- CSS sample's wrapper-->
+					<div class="H50p D-f Fld-c -Ctx-wrapper">
+						<!-- Header-->
+						<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
 
-          <div class="Flg1 C-$accent800">
-            <textarea id="css-area" placeholder="Enter CSS styles" data-type="style" 
-              class="D-n -Sz100p Bd-n Ol-n_f P4u Rs-n Bgc-$core700 C-$accent800"></textarea>
-            <textarea id="scss-area" placeholder="Enter SCSS styles" data-type="style"
-              class="D-n -Sz100p Bd-n Ol-n_f P4u Rs-n Bgc-$core700 C-$accent800"></textarea>
-          </div>
-        </div>
+							<div class="D-f Jc-sb Gap5u C-$accent800">
+								<style-tab checked="checked" radioId="CSS" name="Style" text="CSS"> </style-tab>
+								<style-tab radioId="SASS" name="Style" text="SASS"> </style-tab>
+							</div>
 
-      </div>
+							<button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx-button">
+								<svg class="-Sz100p St-$accent800 Tsd-ih ^button:h:_St-$core800">
+									<use href="src/assets/img/icons.svg#copy"></use>
+								</svg>
+							</button>
+						</div>
 
-      <!-- The right part-->
-      <div class="W50p D-f Fld-c ">
-        <!-- Preview part-->
-        <div class="Flg1 Bdl1;s;$accent700 D-f Fld-c">
-          <!-- Header-->
-          <div class="H12u Flg0 P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
-            <span class="C-$brand Fnw600"> Preview</span>
-            <div>
-              <button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx">
-                <svg class="-Sz100p St-$accent800 Tsd-ih ^:h:_St-$core800">
-                  <use  href="src/assets/img/icons.svg#refresh"></use>
-                </svg>
-              </button>
-            </div>
-          </div>
-          
-          <!-- Preview's Body -->
-          <iframe src="https://mlut.style/" class="W100p Flg1 Bd-n">
-          </iframe>
-        </div>
-      </div>
-    </main>
+						<!-- CSS part's body-->
+
+						<div class="H-calc(100%;-;var(--ml-sectionHeaderH)) Bgc-$core700" data-type="style" data-lang="css">
+							<code-editor lang="css" ></code-editor>
+						</div>
+
+						<div class="H-calc(100%;-;var(--ml-sectionHeaderH)) Bgc-$core700" data-type="style" data-lang="sass">
+							<code-editor lang="sass"></code-editor>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- The right part-->
+				<div class="W50p D-f Fld-c ">
+					<!-- Preview part-->
+					<div class="Flg1 Bdl1;s;$accent700 D-f Fld-c">
+						<!-- Header-->
+						<div class="H-$sectionHeaderH Flg0 P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+							<span class="C-$brand Fnw600"> Preview</span>
+							<div>
+								<button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx">
+									<svg class="-Sz100p St-$accent800 Tsd-ih ^:h:_St-$core800">
+										<use  href="src/assets/img/icons.svg#refresh"></use>
+									</svg>
+								</button>
+							</div>
+						</div>
+
+						<!-- Preview's Body -->
+						<div class="H-calc(100%;-;var(--ml-sectionHeaderH))">
+							<code-preview></code-preview>
+						</div>
+					</div>
+				</div>
+			</main>
+		</main-comp>
   </body>
 </html>

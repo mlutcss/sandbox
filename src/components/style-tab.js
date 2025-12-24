@@ -25,15 +25,15 @@ export class StyleTab extends LitElement {
 			input.checked = this.checked;
 
 			if (this.checked === 'checked') {
-				this.displayTextArea();
+				this.displayEditor();
 			}
 		}
 	}
 
-	displayTextArea() {
-		const textareas = document.querySelectorAll('textarea[data-type="style"]');
-		textareas.forEach((el, index) => {
-			if (el.id === `${this.radioId.toLowerCase()}-area`) {
+	displayEditor() {
+		const editors = document.querySelectorAll('div[data-type="style"]');
+		editors.forEach((el) => {
+			if (el.getAttribute('data-lang') === `${this.radioId.toLowerCase()}`) {
 				el.classList.add('D');
 				el.classList.remove('D-n');
 			} else {
@@ -45,7 +45,7 @@ export class StyleTab extends LitElement {
 
 	handleChange(e) {
 		this.checked = e.target.checked;
-		this.displayTextArea();
+		this.displayEditor();
 	}
 
 	render() {
