@@ -1,6 +1,9 @@
 import { LitElement, html } from 'lit';
+import { ContextConsumer } from '@lit/context';
+import { eventBusContext } from './main-comp';
 
 export class StyleTab extends LitElement {
+	_eventBus = new ContextConsumer(this, { context: eventBusContext });
 
 	createRenderRoot() {
 		return this;
@@ -8,7 +11,7 @@ export class StyleTab extends LitElement {
 
 	static properties = {
 		checked: { type: String },
-		radioId: { type: String },
+		lang: { type: String },
 		name: { type: String },
 		text: { type: String }
 	};
@@ -17,50 +20,16 @@ export class StyleTab extends LitElement {
 		super();
 	}
 
-	firstUpdated() {
-		// если checked выставлен по атрибуту — синхронизируем с внутренним input
-		const input = this.renderRoot.querySelector('input');
-
-		if (input) {
-			input.checked = this.checked;
-
-			if (this.checked === 'checked') {
-				this.displayEditor();
-			}
-		}
-	}
-
-	displayEditor() {
-		const editors = document.querySelectorAll('div[data-type="style"]');
-		editors.forEach((el) => {
-			if (el.getAttribute('data-lang') === `${this.radioId.toLowerCase()}`) {
-				el.classList.add('D');
-				el.classList.remove('D-n');
-			} else {
-				el.classList.add('D-n');
-				el.classList.remove('D');
-			}
-		});
-	}
-
-	handleChange(e) {
-		this.checked = e.target.checked;
-		this.displayEditor();
-	}
-
 	render() {
 		return html`
-      <input type="radio" name=${this.name} id=${this.radioId} ?checked=${this.checked}
-        @change=${this.handleChange} hidden >
-      <label for=${this.radioId} class="Fnw600 C-$accent800 :c:+_C-$brand">
+      <input type="radio" name=${this.name} id=${this.lang} ?checked=${this.checked}
+       hidden >
+      <label for=${this.lang} lang=${this.lang} class="Fnw600 C-$accent800 :c:+_C-$brand">
         ${this.text}
       </label>
     `;
 	}
 
-	__getStatus(e) {
-		console.log(this.checked);
-	}
 }
 
 customElements.define('style-tab', StyleTab);

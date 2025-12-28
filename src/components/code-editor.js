@@ -1,70 +1,64 @@
-// Lit imports
-import { LitElement, html } from 'lit';
-import { watch, SignalWatcher } from '@lit-labs/signals';
 
-// General CodeMirror imports
+import { LitElement, html } from 'lit';
+import { ContextConsumer } from '@lit/context';
+
 import { basicSetup } from 'codemirror';
-import { EditorView, keymap, drawSelection} from '@codemirror/view';
+import { EditorView, keymap, drawSelection } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorState, Prec } from '@codemirror/state';
 
-
-// Language CodeMirror imports
 import { html as langHTML } from '@codemirror/lang-html';
 import { css as langCSS } from '@codemirror/lang-css';
 import { sass as langSASS } from '@codemirror/lang-sass';
 
-// Data imports
-
-import { layout, styles, config } from '../assets/scripts/lit-context';
+import { initialLayout, initialConfig } from '../assets/data/initial-code.js';
+import { eventBusContext } from './main-comp';
 
 const customTheme = Prec.highest(EditorView.theme({
-	".cm-editor": {
-		backgroundColor: "transparent !important"
+	'.cm-selectionMatch': {
+		backgroundColor: 'rgba(255, 200, 0, 0.2)'
 	},
-	".cm-editor>*": {
-		backgroundColor: "transparent !important"
-	},
-	".cm-content": {
-		backgroundColor: "transparent !important"
-	},
-	".cm-selectionMatch": {
-    backgroundColor: "rgba(255, 200, 0, 0.2)"
-  },
-	".cm-line::selection": {
-		backgroundColor: "red !important"
+	'.cm-line::selection': {
+		backgroundColor: 'red !important'
 	}
-}))
+}));
 
 export class CodeEditor extends LitElement {
+	_eventBus = new ContextConsumer(this, { context: eventBusContext });
 
 	static properties = {
 		lang: { type: String },
-		content: { type: Object },
 		timeoutID: { type: Number, state: false },
-		view: { type: Object }
+		view: { type: Object },
+		inProgress: { type: Boolean }
 	};
 
 	createRenderRoot() {
 		return this;
 	}
 
-	constructor() {
-		super();
-		this.content = '';
-	}
-
 	firstUpdated() {
 		this.view = new EditorView(this.setEditorOptions(this.lang));
+
+		if (this.lang === 'css') {
+			this._eventBus.value.on('update-css', this.updateCss);
+		}
+
+		this._eventBus.value.on('request-copy', this.handleCopy);
+	}
+
+	disconnectedCallback() {
+		if (this.lang === 'css') {
+			this._eventBus.value.off('update-css', this.updateCss);
+		}
+
+		this._eventBus.value.off('request-copy', this.handleCopy);
 	}
 
 	setEditorOptions(lang) {
-
-		basicSetup.highlightSelectionMatches = false
-
 		const editorSettings = {
-			parent: this.querySelector('#wrapper'),
+			parent: this.querySelector(`#${this.lang}-editor`),
 			extensions: [
 				basicSetup,
 				EditorView.lineWrapping,
@@ -85,7 +79,7 @@ export class CodeEditor extends LitElement {
 
 			return {
 				...editorSettings,
-				doc: layout.get().trim(),
+				doc: initialLayout.trim(),
 			};
 		case 'css':
 			editorSettings.extensions.push(
@@ -95,19 +89,17 @@ export class CodeEditor extends LitElement {
 
 			return {
 				...editorSettings,
-				doc: styles.get().trim()
+				doc: ''
 			};
 		case 'sass':
 			editorSettings.extensions.push(langSASS());
 
 			return {
 				...editorSettings,
-				doc: config.get().trim(),
+				doc: initialConfig.trim(),
 			};
 		}
 	}
-
-	ы
 
 	setDocChangeHandler() {
 		return EditorView.updateListener.of((update) => {
@@ -117,14 +109,23 @@ export class CodeEditor extends LitElement {
 				if (this.lang !== 'css') {
 					this.timeoutID = setTimeout(() => {
 
-						this.dispatchEvent(new CustomEvent('editor-update', {
-							detail: {
-								target: this,
-								updatedData: update.state.doc.toString(),
-								lang: this.lang
-							},
-							bubbles: true
-						}));
+						if (this.lang === 'html') {
+							this._eventBus.value.emit('update-html', {
+								detail: {
+									target: this,
+									updatedData: update.state.doc.toString(),
+									lang: this.lang
+								},
+							});
+						} else {
+							this._eventBus.value.emit('update-sass', {
+								detail: {
+									target: this,
+									updatedData: update.state.doc.toString(),
+									lang: this.lang
+								},
+							});
+						}
 					}, 1000);
 				}
 
@@ -132,21 +133,28 @@ export class CodeEditor extends LitElement {
 		});
 	}
 
-	updateFromParent() {
+	updateCss = (event) => {
 		const transition = this.view.state.update({
 			changes: {
 				from: 0,
 				to: this.view.state.doc.length,
-				insert: styles.get()
+				insert: event.detail.updatedData
 			}
 		});
 
 		this.view.dispatch(transition);
-	}
+	};
+
+	handleCopy = async (event) => {
+		if (this.lang === event.detail.lang) {
+			await navigator.clipboard.writeText(this.view.state.doc.toString());
+		}
+	};
 
 	render() {
 		return html`
-		<div id="wrapper" class="Mxh100p Bgc-$core700 Ov-a"> <div>
+		<div id="${this.lang}-editor" class="H100p Bgc-$core700 Ov-a" style="height: ${this.inProgress ? '0' : '100%'}">
+		</div>
 		`;
 	}
 }

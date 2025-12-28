@@ -6,13 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mlut playground</title>
     <link rel="stylesheet" href="/src/assets/style/style.css" />
-		<script type="module" src="/src/components/code-editor.js"></script>
-    <script type="module" src="/src/components/style-tab.js"></script>
-		<script type="module" src="/src/components/code-preview.js"></script>
-		<script type="module" src="/src/components/main-comp.js"></script>
 	</head>
   <body class="P0 M0 H100vh">
-    <header class="W100p H-$headerH Ps-a T0 L0 Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
+    <header class="W100p H-$headerH Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
       <!-- Logo part-->
       <div class="W50p D-f Ai-c">
         <div class=" D-f Ai-fe Gap3u W100p">
@@ -21,97 +17,90 @@
         </div>
       </div>
 
-      <!-- Navbar-->
+			<!-- Navbar-->
 
       <nav class=" D-f Ai-c Jc-fe P1u;3u">
         <ul class="Lsst-n D-f Jc-c Gap4u Ai-c P0 Fns5u M0">
           <li class="M0">
             <a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Main</a>
           </li>
-          <li  class="M0">
+          <li class="M0">
             <a href="https://mlutcss.github.io/mlut/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Docs</a>
           </li>
         </ul>
       </nav>
 
-    </header>
+		</header>
 
-		<main-comp>
-			<main class="D-f Ai-str H100vh Pt-$headerH ">
-
-				<!-- Left part-->
-				<div class="W50p D-f Fld-c ">
-
-					<!-- HTML sample's wrapper-->
-					<div class="H50p D-f Fld-c">
-						<!-- Header-->
-						<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
-							<span class="C-$brand Fnw600"> HTML</span>
-							<button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx">
-								<svg class="-Sz100p St-$accent800 Tsd-ih ^:h:_St-$core800">
-									<use href="src/assets/img/icons.svg#copy"></use>
-								</svg>
-							</button>
-						</div>
-						<!-- HTML part's body-->
-						<div class="H-calc(100%;-;var(--ml-sectionHeaderH)) Bgc-$core700">
-							<code-editor lang="html"></code-editor>
-						</div>
-					</div>
-
-					<!-- CSS sample's wrapper-->
-					<div class="H50p D-f Fld-c -Ctx-wrapper">
-						<!-- Header-->
-						<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
-
-							<div class="D-f Jc-sb Gap5u C-$accent800">
-								<style-tab checked="checked" radioId="CSS" name="Style" text="CSS"> </style-tab>
-								<style-tab radioId="SASS" name="Style" text="SASS"> </style-tab>
+		<div class="H-calc(100%;-;var(--ml-headerH)) W100p Ps-r loader">
+			<main-comp class="H100p Ps-r ">
+				<main class="D-f Ai-str H100p Ps-r">
+					<!-- Left part-->
+						<div class="W50p D-f Fld-c">
+							<!-- HTML sample's wrapper-->
+							<div class="H50p D-f Fld-c">
+								<!-- Header-->
+								<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+									<span class="C-$brand Fnw600"> HTML</span>
+									<copy-button lang="html"></copy-button>
+								</div>
+								<!-- HTML part's body-->
+								<div class="H-calc(100%;-;$sectionHeaderH) Bgc-$core700">
+									<code-editor lang="html"></code-editor>
+								</div>
 							</div>
-
-							<button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx-button">
-								<svg class="-Sz100p St-$accent800 Tsd-ih ^button:h:_St-$core800">
-									<use href="src/assets/img/icons.svg#copy"></use>
-								</svg>
-							</button>
+								<!-- CSS sample's wrapper-->
+								<div class="H50p">
+									<tab-switch></tab-switch>
+								</div>
 						</div>
 
-						<!-- CSS part's body-->
-
-						<div class="H-calc(100%;-;var(--ml-sectionHeaderH)) Bgc-$core700" data-type="style" data-lang="css">
-							<code-editor lang="css" ></code-editor>
-						</div>
-
-						<div class="H-calc(100%;-;var(--ml-sectionHeaderH)) Bgc-$core700" data-type="style" data-lang="sass">
-							<code-editor lang="sass"></code-editor>
-						</div>
-					</div>
-
-				</div>
-
-				<!-- The right part-->
-				<div class="W50p D-f Fld-c ">
-					<!-- Preview part-->
-					<div class="Flg1 Bdl1;s;$accent700 D-f Fld-c">
-						<!-- Header-->
-						<div class="H-$sectionHeaderH Flg0 P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
-							<span class="C-$brand Fnw600"> Preview</span>
-							<div>
-								<button class="D-ib -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx">
-									<svg class="-Sz100p St-$accent800 Tsd-ih ^:h:_St-$core800">
-										<use  href="src/assets/img/icons.svg#refresh"></use>
-									</svg>
-								</button>
+							<!-- The right part-->
+						<div class="W50p D-f Fld-c ">
+								<!-- Preview part-->
+							<div class="Flg1 Bdl1;s;$accent700 D-f Fld-c">
+									<!-- Header-->
+								<div class="H-$sectionHeaderH Flg0 P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+									<span class="C-$brand Fnw600"> Preview</span>
+								</div>
+								<!-- Preview's Body -->
+								<div class="H-calc(100%;-;$sectionHeaderH)">
+									<code-preview></code-preview>
+								</div>
 							</div>
 						</div>
+				</main>
+			</main-comp>
+		</div>
+		<script type="importmap">
+			{
+				"imports": {
+					"@mlut/core": "../packages/core/dist/index.js",
+					"immutable": "https://unpkg.com/immutable@^4.0.0",
+					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js"
+				}
+			}
+		</script>
+		<script type="module">
+			const contentLoader = document.querySelector('.loader');
+			document.addEventListener('DOMContentLoaded', () => {
+				contentLoader.classList.remove('loader')
+			})
+		</script>
+    <script type="module" src="/src/components/style-tab.js"></script>
+    <script type="module" src="/src/components/copy-button.js"></script>
+		<script type="module" src="/src/components/content-loader.js"></script>
+		<script type="module" src="/src/components/code-editor.js"></script>
+		<script type="module" src="/src/components/code-preview.js"></script>
+		<script type="module" src="/src/components/tab-switch.js"></script>
+		<script type="module" src="/src/components/main-comp.js"></script>
+		<script type="module" src="/src/components/error-fallback.js"></script>
+		<script type="module">
+			globalThis.mlut = {
+				githubToken: 'ghp_3'+'zrlp3dAxUL'+'fPGhkJAzZgG5gn'+'23saW1BlQH1',
+			};
+		</script>
+		<script type="module" src="https://unpkg.com/@mlut/core@latest/dist/index.js"></script>
 
-						<!-- Preview's Body -->
-						<div class="H-calc(100%;-;var(--ml-sectionHeaderH))">
-							<code-preview></code-preview>
-						</div>
-					</div>
-				</div>
-			</main>
-		</main-comp>
   </body>
 </html>

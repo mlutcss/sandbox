@@ -1,52 +1,28 @@
 import { LitElement, html } from 'lit';
-import { layout, styles, config } from '../assets/scripts/lit-context';
+import { createContext, ContextProvider } from '@lit/context';
 
-const cssEditor = document.querySelector('code-editor[lang="css"]');
+import { EventBus } from '../assets/scripts/event-bus.js';
+
+export const eventBusContext = createContext('eventBus');
+const eventBus = new EventBus();
 
 export class MainComp extends LitElement {
 
-	createRenderRoot() {
-		return this.querySelector('main');
-	}
+	_provider = new ContextProvider(this, {
+		context: eventBusContext,
+		initialValue: eventBus
+	});
 
 	constructor() {
 		super();
-		this.addEventListener('editor-update', (event) => this.handleChildUpdate(event));
+		this.inProgress = true;
 	}
 
-	handleChildUpdate(event) {
-
-		if (event.detail.lang === 'html') {
-			layout.set(event.detail.updatedData);
-		} else if (event.detail.lang === 'sass') {
-			config.set(event.detail.updatedData);
-		}
-		console.log(event.detail.lang)
-
-		try {
-			this.buildStyles(layout.get(), config.get());
-			cssEditor.updateFromParent();
-		} catch (err) {
-			console.log(err.message);
-			layout.set(`
-				<h1 style="color: red; text-align: center">
-					${err.message}
-				</h1>`)
-		}1
+	createRenderRoot() {
+		return this;
 	}
-
-	buildStyles(layout, config) {
-		// throw new Error('Something went wrong!');
-		const array = layout.split('\n');
-		styles.set(array[0]);
-	}
-
 	render() {
-		return html`
-			<main class="D-f Ai-str H100vh Pt-$headerH">
-				<slot></slot>
-			</main>
-		`;
+		return html``;
 	}
 
 }
