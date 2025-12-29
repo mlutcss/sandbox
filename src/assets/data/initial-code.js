@@ -1,5 +1,5 @@
-const initialLayout =  `
-<div id="hero-page" class="-Gdl120d,$core750,$core650,$core600 H100vh P-$heroPadding;0;5u D-f Jc-c Ai-c">
+export const initialLayout =  `
+<div id="hero-page" class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P-$heroPadding;0;5u D-f Jc-c Ai-c">
 
 	<div class="D-f Jc-c Ai-c Fld-c  wrapper">
 
@@ -21,9 +21,8 @@ const initialLayout =  `
 	</div>
 </div>
 `
-const initialConfig = `
-@use "@mlut/core/tools";
-@use "@mlut/core/dist/sass/css/styles";
+export const initialConfig = `
+@use "@mlut/core";
 
 @media (prefers-color-scheme: dark){
   html{
@@ -45,8 +44,47 @@ const initialConfig = `
   }
 }
 `
-const loaderStyles = `
 
+export const errorLayout = `
+	<div>
+		<h1> Ooops... </h1>
+		<h2>
+			Something went wrong in your Sass-config!
+		</h2>
+		<h2>
+			Check out the console
+		</h2>
+	</div>
 `
 
-export {initialLayout, initialConfig}
+export const errorStyles = `
+	@media (prefers-color-scheme: light){
+		div {
+			--ml-core800: #f0f0f1;
+		}
+	}
+	@media (prefers-color-scheme: dark){
+		div {
+			--ml-core800: #111827;
+		}
+	}
+	* {
+		margin: 0;
+	}
+	div {
+		background-color:var(--ml-core800);
+		height: 100vh;
+		weight: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	h1, h2 {
+		color: #f0438c;
+		text-align: center;
+		width: 100%;
+		padding: 0;
+		margin: 0 0 1rem
+	}
+`

@@ -1,6 +1,5 @@
 import { LitElement, html } from 'lit';
-import { initialLayout, initialConfig } from '../assets/data/initial-code.js';
-import { jitEngine } from 'https://unpkg.com/@mlut/core@latest/dist/index.js';
+import { initialLayout, initialConfig, errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from './main-comp.js';
@@ -23,6 +22,7 @@ export class CodePreview extends LitElement {
 	async firstUpdated() {
 		this._eventBus.value.on('update-html', this.handleUpdate);
 		this._eventBus.value.on('update-sass', this.handleUpdate);
+		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
 		this.mlutEngine = jitEngine;
 		await this.updateCSS(initialLayout, initialConfig);
@@ -78,7 +78,21 @@ export class CodePreview extends LitElement {
 			`;
 		} else if (!this.isValid) {
 			return html`
-				<error-fallback></error-fallback>
+				<iframe srcdoc='<!DOCTYPE html>
+				<html lang="en">
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<style>
+						${errorStyles}
+					</style>
+				</head>
+				<body style="margin:0" class="">
+					${errorLayout}
+				</body>
+				</html>'
+				 class="D -Sz100p Bd-n P0">
+				</iframe>
 			`;
 		}
 

@@ -64,8 +64,8 @@
 									<span class="C-$brand Fnw600"> Preview</span>
 								</div>
 								<!-- Preview's Body -->
-								<div class="H-calc(100%;-;$sectionHeaderH)">
-									<code-preview></code-preview>
+								<div class="H-calc(100%;-;$sectionHeaderH) Ps-r">
+									<code-preview class="preview-loader"></code-preview>
 								</div>
 							</div>
 						</div>
@@ -75,18 +75,12 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"@mlut/core": "../packages/core/dist/index.js",
 					"immutable": "https://unpkg.com/immutable@^4.0.0",
 					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js"
 				}
 			}
 		</script>
-		<script type="module">
-			const contentLoader = document.querySelector('.loader');
-			document.addEventListener('DOMContentLoaded', () => {
-				contentLoader.classList.remove('loader')
-			})
-		</script>
+		<script type="module" src="/src/assets/scripts/loader-helper.js"></script>
     <script type="module" src="/src/components/style-tab.js"></script>
     <script type="module" src="/src/components/copy-button.js"></script>
 		<script type="module" src="/src/components/content-loader.js"></script>
@@ -94,7 +88,6 @@
 		<script type="module" src="/src/components/code-preview.js"></script>
 		<script type="module" src="/src/components/tab-switch.js"></script>
 		<script type="module" src="/src/components/main-comp.js"></script>
-		<script type="module" src="/src/components/error-fallback.js"></script>
 		<script type="module">
 			globalThis.mlut = {
 				githubToken: 'ghp_3'+'zrlp3dAxUL'+'fPGhkJAzZgG5gn'+'23saW1BlQH1',

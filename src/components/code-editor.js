@@ -16,11 +16,11 @@ import { initialLayout, initialConfig } from '../assets/data/initial-code.js';
 import { eventBusContext } from './main-comp';
 
 const customTheme = Prec.highest(EditorView.theme({
+	'.cm-scroller': {
+		fontSize: '15px',
+	},
 	'.cm-selectionMatch': {
 		backgroundColor: 'rgba(255, 200, 0, 0.2)'
-	},
-	'.cm-line::selection': {
-		backgroundColor: 'red !important'
 	}
 }));
 
@@ -31,7 +31,6 @@ export class CodeEditor extends LitElement {
 		lang: { type: String },
 		timeoutID: { type: Number, state: false },
 		view: { type: Object },
-		inProgress: { type: Boolean }
 	};
 
 	createRenderRoot() {
@@ -109,23 +108,13 @@ export class CodeEditor extends LitElement {
 				if (this.lang !== 'css') {
 					this.timeoutID = setTimeout(() => {
 
-						if (this.lang === 'html') {
-							this._eventBus.value.emit('update-html', {
-								detail: {
-									target: this,
-									updatedData: update.state.doc.toString(),
-									lang: this.lang
-								},
-							});
-						} else {
-							this._eventBus.value.emit('update-sass', {
-								detail: {
-									target: this,
-									updatedData: update.state.doc.toString(),
-									lang: this.lang
-								},
-							});
-						}
+						this._eventBus.value.emit(`update-${this.lang}`, {
+							detail: {
+								target: this,
+								updatedData: update.state.doc.toString(),
+								lang: this.lang
+							},
+						});
 					}, 1000);
 				}
 
@@ -153,7 +142,7 @@ export class CodeEditor extends LitElement {
 
 	render() {
 		return html`
-		<div id="${this.lang}-editor" class="H100p Bgc-$core700 Ov-a" style="height: ${this.inProgress ? '0' : '100%'}">
+		<div id="${this.lang}-editor" class="H100p Bgc-$core700 Ov-a Fns10u" style="height: ${this.inProgress ? '0' : '100%'}">
 		</div>
 		`;
 	}
