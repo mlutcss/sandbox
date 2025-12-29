@@ -76,24 +76,6 @@ export class CodePreview extends LitElement {
 			return html`
 				<content-loader></content-loader>
 			`;
-		} else if (!this.isValid) {
-			return html`
-				<iframe srcdoc='<!DOCTYPE html>
-				<html lang="en">
-				<head>
-					<meta charset="UTF-8">
-					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<style>
-						${errorStyles}
-					</style>
-				</head>
-				<body style="margin:0" class="">
-					${errorLayout}
-				</body>
-				</html>'
-				 class="D -Sz100p Bd-n P0">
-				</iframe>
-			`;
 		}
 
 		return html`
@@ -103,11 +85,11 @@ export class CodePreview extends LitElement {
 					<meta charset="UTF-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<style>
-						${this.cssStyles}
+					${this.isValid ? this.cssStyles : errorStyles}
 					</style>
 				</head>
 				<body style="margin:0" class="">
-					${this.htmlLayout}
+					${this.isValid ? this.htmlLayout : errorLayout}
 				</body>
 				</html>'
 				 class="D -Sz100p Bd-n P0">
