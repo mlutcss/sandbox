@@ -4,6 +4,11 @@ html {
 	--ml-brand:#f0438c;
 }
 
+* {
+	scrollbar-color: var(--ml-accent700) var(--ml-core800);
+}
+
+
 @media (prefers-color-scheme: light){
   html {
     --ml-core800: #f0f0f1;
@@ -19,4 +24,48 @@ html {
     --ml-accent800:#878c99;
     --ml-accent700: #7f838f;
   }
+}
+
+.loader:before {
+	content: '';
+	z-index: 10;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100% ;
+	background-color: var(--ml-core800);
+}
+
+.loader:after {
+	content: '';
+	z-index: 11;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	border: 0.5rem solid var(--ml-brand);
+	border-left-width:0;
+	border-bottom-width:0;
+	border-top-width:0.25rem;
+	border-radius:50%;
+	width: 150px;
+	aspect-ratio: 1;
+	animation-name: spin;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
