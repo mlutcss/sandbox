@@ -1,11 +1,13 @@
 import { LitElement, html } from 'lit';
 import { initialLayout, initialConfig } from '../assets/data/initial-code.js';
+import { jitEngine } from 'https://unpkg.com/@mlut/core@latest/dist/index.js';
 
 import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from './main-comp.js';
 
 export class CodePreview extends LitElement {
 	_eventBus = new ContextConsumer(this, { context: eventBusContext });
+	_markupPath = 'index.html';
 
 	createRenderRoot() {
 		return this;
@@ -14,26 +16,22 @@ export class CodePreview extends LitElement {
 	static properties = {
 		htmlLayout: { type: String },
 		cssStyles: { type: String },
-		config: { type: String },
 		isValid: { type: Boolean },
 		inProgress: { type: Boolean },
-		mlutEngine: { type: Object },
-		timeoutID: { type: Number }
 	};
 
 	async firstUpdated() {
 		this._eventBus.value.on('update-html', this.handleUpdate);
 		this._eventBus.value.on('update-sass', this.handleUpdate);
-		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
-		jitEngine.putContent('index.html', initialLayout);
 		this.mlutEngine = jitEngine;
-		await this.debounceCssUpdate(initialLayout, initialConfig);
+		await this.updateCSS(initialLayout, initialConfig);
+		this.inProgress = false;
 	}
 
 	disconnectedCallback() {
-		this._eventBus.value.off('update-html', this.debounceHandleUpdate);
-		this._eventBus.value.off('update-sass', this.debounceHandleUpdate);
+		this._eventBus.value.off('update-html', this.handleUpdate);
+		this._eventBus.value.off('update-sass', this.handleUpdate);
 	}
 
 	handleUpdate = async (event) => {
@@ -43,14 +41,13 @@ export class CodePreview extends LitElement {
 			this.config = event.detail.updatedData;
 		}
 
-		await this.debounceCssUpdate(this.htmlLayout, this.config);
+		await this.updateCSS(this.htmlLayout, this.config);
 	};
 
 	async updateCSS(layout, config) {
 		await this.mlutEngine.updateSassConfig(config);
-		this.mlutEngine.putContent('layout.html', layout);
+		this.mlutEngine.putContent(this._markupPath, layout);
 		this.cssStyles = await this.mlutEngine.generateCss();
-		console.log(this.cssStyles);
 
 		if (this.cssStyles) {
 			this.isValid = true;
@@ -64,18 +61,10 @@ export class CodePreview extends LitElement {
 		} else {
 			this.isValid = false;
 		}
-
-		this.inProgress = false;
-	}
-
-	async debounceCssUpdate(layout, config) {
-		clearTimeout(this.timeoutID);
-		this.timeoutID = setTimeout(await this.updateCSS(layout, config), 500);
 	}
 
 	constructor() {
 		super();
-		this.documentContent = '';
 		this.htmlLayout = initialLayout;
 		this.config = initialConfig;
 		this.isValid = true;
