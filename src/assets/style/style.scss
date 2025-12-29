@@ -29,8 +29,9 @@ html {
   }
 }
 
-.loader:before, .preview-loader:before {
+.loader:before {
 	content: '';
+	z-index: 10;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -39,8 +40,9 @@ html {
 	background-color: var(--ml-core800);
 }
 
-.loader:after, .preview-loader:after {
+.loader:after {
 	content: '';
+	z-index: 11;
 	margin: auto;
 	position: absolute;
 	top: 0;
@@ -60,9 +62,6 @@ html {
 	animation-timing-function: linear;
 }
 
-.preview-loader:before {
-	z-index: 10;
-}
 
 @keyframes spin {
 	0% {

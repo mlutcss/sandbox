@@ -17,7 +17,7 @@ import { eventBusContext } from './main-comp';
 
 const customTheme = Prec.highest(EditorView.theme({
 	'.cm-scroller': {
-		fontSize: '15px',
+		fontSize: '14px',
 	},
 	'.cm-selectionMatch': {
 		backgroundColor: 'rgba(255, 200, 0, 0.2)'
