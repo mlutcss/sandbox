@@ -1,4 +1,4 @@
 const contentLoader = document.querySelector('.loader');
-	document.addEventListener('DOMContentLoaded', () => {
+	window.addEventListener('load', () => {
 	contentLoader.classList.remove('loader')
 })
