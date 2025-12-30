@@ -1,4 +1,3 @@
-
 import { LitElement, html } from 'lit';
 import { ContextConsumer } from '@lit/context';
 
@@ -115,7 +114,7 @@ export class CodeEditor extends LitElement {
 								lang: this.lang
 							},
 						});
-					}, 1000);
+					}, 750);
 				}
 
 			}

@@ -41,11 +41,14 @@ export class CodePreview extends LitElement {
 			this.config = event.detail.updatedData;
 		}
 
-		await this.updateCSS(this.htmlLayout, this.config);
+		await this.updateCSS(this.htmlLayout, this.config, event.detail.lang);
 	};
 
-	async updateCSS(layout, config) {
-		await this.mlutEngine.updateSassConfig(config);
+	async updateCSS(layout, config, lang) {
+		if (lang === 'sass') {
+			await this.mlutEngine.updateSassConfig(config);
+		}
+
 		this.mlutEngine.putContent(this._markupPath, layout);
 		this.cssStyles = await this.mlutEngine.generateCss();
 
