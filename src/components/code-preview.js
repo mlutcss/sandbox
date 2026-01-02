@@ -1,37 +1,42 @@
 import { LitElement, html } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { initialLayout, initialConfig, errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
-import { eventBusContext } from './main-comp.js';
+import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CodePreview extends LitElement {
-	_eventBus = new ContextConsumer(this, { context: eventBusContext });
+	_eventBusContext = new ContextConsumer(this, {
+		context: eventBusContext,
+		callback: (bus) => {
+			this.eventBus = bus;
+		}
+	});
 	_markupPath = 'index.html';
-
-	createRenderRoot() {
-		return this;
-	}
 
 	static properties = {
 		htmlLayout: { type: String },
-		cssStyles: { type: String },
+		config: { type: String },
 		isValid: { type: Boolean },
-		inProgress: { type: Boolean },
 	};
 
 	async firstUpdated() {
-		this._eventBus.value.on('update-html', this.handleUpdate);
-		this._eventBus.value.on('update-sass', this.handleUpdate);
+		this.unbindUpdateHtml = this.eventBus.on('update-html', this.handleUpdate);
+		this.unbindUpdateSass = this.eventBus.on('update-sass', this.handleUpdate);
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
 		this.mlutEngine = jitEngine;
 		await this.updateCSS(initialLayout, initialConfig);
-		this.inProgress = false;
+		this.shadowRoot.adoptedStyleSheets = [
+			this.generatedStyleSheets
+		];
+		this.eventBus.emit('remove-loader');
 	}
 
 	disconnectedCallback() {
-		this._eventBus.value.off('update-html', this.handleUpdate);
-		this._eventBus.value.off('update-sass', this.handleUpdate);
+		super.disconnectedCallback();
+		this.unbindUpdateHtml();
+		this.unbindUpdateSass();
 	}
 
 	handleUpdate = async (event) => {
@@ -50,19 +55,21 @@ export class CodePreview extends LitElement {
 		}
 
 		this.mlutEngine.putContent(this._markupPath, layout);
-		this.cssStyles = await this.mlutEngine.generateCss();
+		const generatedStyles = await this.mlutEngine.generateCss();
+		this.generatedStyleSheets.replaceSync(generatedStyles);
 
-		if (this.cssStyles) {
+		if (generatedStyles) {
 			this.isValid = true;
-			this._eventBus.value.emit('update-css', {
+			this.eventBus.emit('update-css', {
 				detail: {
 					target: this,
-					updatedData: this.cssStyles,
+					updatedData: generatedStyles,
 					lang: 'css'
 				}
 			});
 		} else {
 			this.isValid = false;
+			this.generatedStyleSheets.replaceSync(errorStyles);
 		}
 	}
 
@@ -70,35 +77,12 @@ export class CodePreview extends LitElement {
 		super();
 		this.htmlLayout = initialLayout;
 		this.config = initialConfig;
+		this.generatedStyleSheets = new CSSStyleSheet();
 		this.isValid = true;
-		this.inProgress = true;
 	}
 
 	render() {
-		if (this.inProgress) {
-			return html`
-				<content-loader></content-loader>
-			`;
-		}
-
-		return html`
-				<iframe srcdoc='<!DOCTYPE html>
-				<html lang="en">
-				<head>
-					<meta charset="UTF-8">
-					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<style>
-					${this.isValid ? this.cssStyles : errorStyles}
-					</style>
-				</head>
-				<body style="margin:0" class="">
-					${this.isValid ? this.htmlLayout : errorLayout}
-				</body>
-				</html>'
-				 class="D -Sz100p Bd-n P0">
-				</iframe>
-			`;
-
+		return html`${this.isValid ? unsafeHTML(this.htmlLayout) : unsafeHTML(errorLayout)}`;
 	}
 }
 

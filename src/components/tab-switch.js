@@ -2,8 +2,7 @@ import { LitElement, html } from 'lit';
 
 export class TabSwitch extends LitElement {
 	static properties = {
-		cssChecked: { type: String },
-		sassChecked: { type: String }
+		checkedLang: { type: String }
 	};
 
 	createRenderRoot() {
@@ -12,18 +11,12 @@ export class TabSwitch extends LitElement {
 
 	constructor() {
 		super();
-		this.cssChecked = 'unchecked';
-		this.sassChecked = 'checked';
+		this.checkedLang = 'sass';
 	}
 
-	handleClick(event) {
-		if (event.target.lang === 'css') {
-			this.cssChecked = 'checked';
-			this.sassChecked = 'unchecked';
-		} else if (event.target.lang === 'sass') {
-			this.sassChecked = 'checked';
-			this.cssChecked = 'unchecked';
-		}
+	handleChange(event) {
+		this.checkedLang = event.target.id;
+		console.log(event.target);
 	}
 
 	render() {
@@ -32,23 +25,24 @@ export class TabSwitch extends LitElement {
 			<!-- Header-->
 			<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
 				<div class="D-f Jc-sb Gap5u C-$accent800">
-					<style-tab checked="${this.cssChecked}" @click="${this.handleClick}" lang="css" name="Style" text="CSS"> </style-tab>
-					<style-tab checked="${this.sassChecked}" @click="${this.handleClick}" lang="sass" name="Style" text="SASS"> </style-tab>
+					<style-tab checked="${this.checkedLang === 'css' ? 'checked' : 'unchecked'}" @change="${this.handleChange}" lang="css" name="Style" text="CSS"> </style-tab>
+
+					<style-tab checked="${this.checkedLang === 'sass' ? 'checked' : 'unchecked'}" @change="${this.handleChange}" lang="sass" name="Style" text="SASS"> </style-tab>
 				</div>
 				<div class="D-f Jc-c Ai-c">
-					<copy-button class="D-ib" style="display:${this.cssChecked === 'checked' ? 'block' : 'none'}" lang='css'></copy-button>
-					<copy-button class="D-ib" style="display:${this.sassChecked === 'checked' ? 'block' : 'none'}" lang='sass'></copy-button>
+					<copy-button class="D-ib" style="display:${this.checkedLang === 'css' ? 'block' : 'none'}" lang='css'></copy-button>
+					<copy-button class="D-ib" style="display:${this.checkedLang === 'sass' ? 'block' : 'none'}" lang='sass'></copy-button>
 				</div>
 			</div>
 
 			<!-- CSS part's body-->
 
 			<div class="H-calc(100%;-;$sectionHeaderH) Bgc-$core700"
-				style="display:${this.cssChecked === 'checked' ? 'block' : 'none'}">
+				style="display:${this.checkedLang === 'css' ? 'block' : 'none'}">
 				<code-editor lang="css"></code-editor>
 			</div>
 			<div class="H-calc(100%;-;$sectionHeaderH) Bgc-$core700"
-				style="display:${this.sassChecked === 'checked' ? 'block' : 'none'}">
+				style="display:${this.checkedLang === 'sass' ? 'block' : 'none'}">
 				<code-editor lang="sass"></code-editor>
 			</div>
 		</div>

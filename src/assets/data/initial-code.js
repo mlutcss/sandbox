@@ -1,5 +1,5 @@
-export const initialLayout =  `
-<div id="hero-page" class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P-$heroPadding;0;5u D-f Jc-c Ai-c">
+export const initialLayout = `
+<div id="hero-page" class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100p P-$heroPadding;0;5u D-f Jc-c Ai-c">
 
 	<div class="D-f Jc-c Ai-c Fld-c  wrapper">
 
@@ -20,12 +20,13 @@ export const initialLayout =  `
 		</div>
 	</div>
 </div>
-`
+`;
+
 export const initialConfig = `
 @use "@mlut/core";
 
 @media (prefers-color-scheme: dark){
-  html{
+  *{
     --ml-accent900:#fff;
     --ml-accent850:rgb(209,213,219,1);
     --ml-core750:#121828;
@@ -35,7 +36,7 @@ export const initialConfig = `
 }
 
 @media (prefers-color-scheme: light){
-  html{
+  *{
     --ml-accent900:rgb(17,24,39);
     --ml-accent850:rgb(41,42,51,1);
     --ml-core750:rgb(236,240,246,0.5);
@@ -43,7 +44,7 @@ export const initialConfig = `
     --ml-core600:rgba(142,197,255,0.4);
   }
 }
-`
+`;
 
 export const errorLayout = `
 	<div>
@@ -55,7 +56,7 @@ export const errorLayout = `
 			Check out the console
 		</h2>
 	</div>
-`
+`;
 
 export const errorStyles = `
 	@media (prefers-color-scheme: light){
@@ -73,7 +74,7 @@ export const errorStyles = `
 	}
 	div {
 		background-color:var(--ml-core800);
-		height: 100vh;
+		height: 100%;
 		weight: 100%;
 		display: flex;
 		flex-direction: column;
@@ -87,4 +88,4 @@ export const errorStyles = `
 		padding: 0;
 		margin: 0 0 1rem
 	}
-`
+`;

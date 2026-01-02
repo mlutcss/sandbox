@@ -1,13 +1,8 @@
 import { LitElement, html } from 'lit';
-import { createContext, ContextProvider } from '@lit/context';
-
-import { EventBus } from '../assets/scripts/event-bus.js';
-
-export const eventBusContext = createContext('eventBus');
-const eventBus = new EventBus();
+import { ContextProvider } from '@lit/context';
+import { eventBusContext, eventBus } from '/src/assets/scripts/eventBusContext.js';
 
 export class MainComp extends LitElement {
-
 	_provider = new ContextProvider(this, {
 		context: eventBusContext,
 		initialValue: eventBus
@@ -16,7 +11,17 @@ export class MainComp extends LitElement {
 	constructor() {
 		super();
 		this.inProgress = true;
+		this.unbindLoaderRemover = eventBus.on('remove-loader', this.removeLoader);
 	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.unbindLoaderRemover();
+	}
+
+	removeLoader = () => {
+		this.querySelector('.loader').classList.remove('loader');
+	};
 
 	createRenderRoot() {
 		return this;
