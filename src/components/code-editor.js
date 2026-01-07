@@ -33,8 +33,6 @@ export class CodeEditor extends LitElement {
 
 	static properties = {
 		lang: { type: String },
-		debounceTimeout: { type: Number, state: false },
-		view: { type: Object },
 	};
 
 	createRenderRoot() {
@@ -45,20 +43,20 @@ export class CodeEditor extends LitElement {
 		this.view = new EditorView(this.setEditorOptions(this.lang));
 
 		if (this.lang === 'css') {
-			this.unbindUpdateCSS = this.eventBus.on('update-css', this.updateCss);
+			this.eventBus.on('update-css', this.updateCss);
 		}
 
-		this.unbindRequestCopy = this.eventBus.on('request-copy', this.handleCopy);
+		this.eventBus.on('request-copy', this.handleCopy);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
 
 		if (this.lang === 'css') {
-			this.unbindUpdateCSS();
+			this.eventBus.off('update-css', this.updateCss);
 		}
 
-		this.unbindRequestCopy();
+		this.eventBus.off('request-copy', this.handleCopy);
 	}
 
 	setEditorOptions(lang) {

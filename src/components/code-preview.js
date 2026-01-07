@@ -1,12 +1,11 @@
 import { LitElement, html } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { initialLayout, initialConfig, errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CodePreview extends LitElement {
-	_eventBusContext = new ContextConsumer(this, {
+	eventBusContext = new ContextConsumer(this, {
 		context: eventBusContext,
 		callback: (bus) => {
 			this.eventBus = bus;
@@ -14,39 +13,38 @@ export class CodePreview extends LitElement {
 	});
 	_markupPath = 'index.html';
 
+	createRenderRoot() {
+		return this;
+	}
+
 	static properties = {
-		htmlLayout: { type: String },
-		config: { type: String },
-		isValid: { type: Boolean },
+		cssStyles: { type: String },
 	};
 
 	async firstUpdated() {
-		this.unbindUpdateHtml = this.eventBus.on('update-html', this.handleUpdate);
-		this.unbindUpdateSass = this.eventBus.on('update-sass', this.handleUpdate);
+		this.eventBus.on('update-html', this.handleUpdate);
+		this.eventBus.on('update-sass', this.handleUpdate);
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
 		this.mlutEngine = jitEngine;
 		await this.updateCSS(initialLayout, initialConfig);
-		this.shadowRoot.adoptedStyleSheets = [
-			this.generatedStyleSheets
-		];
-		this.eventBus.emit('remove-loader');
+		this.classList.remove('loader');
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.unbindUpdateHtml();
-		this.unbindUpdateSass();
+		this.eventBus.off('update-html', this.handleUpdate);
+		this.eventBus.off('update-sass', this.handleUpdate);
 	}
 
 	handleUpdate = async (event) => {
 		if (event.detail.lang === 'html') {
 			this.htmlLayout = event.detail.updatedData;
 		} else if (event.detail.lang === 'sass') {
-			this.config = event.detail.updatedData;
+			this.sassConfig = event.detail.updatedData;
 		}
 
-		await this.updateCSS(this.htmlLayout, this.config, event.detail.lang);
+		await this.updateCSS(this.htmlLayout, this.sassConfig, event.detail.lang);
 	};
 
 	async updateCSS(layout, config, lang) {
@@ -55,35 +53,35 @@ export class CodePreview extends LitElement {
 		}
 
 		this.mlutEngine.putContent(this._markupPath, layout);
-		const generatedStyles = await this.mlutEngine.generateCss();
-		this.generatedStyleSheets.replaceSync(generatedStyles);
+		this.cssStyles = await this.mlutEngine.generateCss();
 
-		if (generatedStyles) {
-			this.isValid = true;
+		if (this.cssStyles) {
+			this.fillIframe(layout, this.cssStyles);
 			this.eventBus.emit('update-css', {
 				detail: {
 					target: this,
-					updatedData: generatedStyles,
+					updatedData: this.cssStyles,
 					lang: 'css'
 				}
 			});
 		} else {
-			this.isValid = false;
-			this.generatedStyleSheets.replaceSync(errorStyles);
+			this.fillIframe(errorLayout, errorStyles);
 		}
 	}
 
-	constructor() {
-		super();
-		this.htmlLayout = initialLayout;
-		this.config = initialConfig;
-		this.generatedStyleSheets = new CSSStyleSheet();
-		this.isValid = true;
+	fillIframe(layout, styles) {
+		const doc = this.querySelector('iframe').contentDocument;
+		doc.head.innerHTML = `
+			<style>${styles}</style>
+		`;
+		doc.body.innerHTML = `${layout}`;
 	}
 
 	render() {
-		return html`${this.isValid ? unsafeHTML(this.htmlLayout) : unsafeHTML(errorLayout)}`;
+		return html`<iframe class="-Sz100p Bd0" sandbox="allow-same-origin"></iframe>
+		`;
 	}
 }
 
 customElements.define('code-preview', CodePreview);
+

@@ -16,7 +16,6 @@ export class TabSwitch extends LitElement {
 
 	handleChange(event) {
 		this.checkedLang = event.target.id;
-		console.log(event.target);
 	}
 
 	render() {

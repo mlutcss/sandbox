@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement } from 'lit';
 import { ContextProvider } from '@lit/context';
 import { eventBusContext, eventBus } from '/src/assets/scripts/eventBusContext.js';
 
@@ -10,13 +10,12 @@ export class MainComp extends LitElement {
 
 	constructor() {
 		super();
-		this.inProgress = true;
 		this.unbindLoaderRemover = eventBus.on('remove-loader', this.removeLoader);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.unbindLoaderRemover();
+		this.unbindLoaderRemover = eventBus.off('remove-loader', this.removeLoader);
 	}
 
 	removeLoader = () => {
@@ -26,10 +25,6 @@ export class MainComp extends LitElement {
 	createRenderRoot() {
 		return this;
 	}
-	render() {
-		return html``;
-	}
-
 }
 
 customElements.define('main-comp', MainComp);
