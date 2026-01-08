@@ -24,13 +24,6 @@ const customTheme = Prec.highest(EditorView.theme({
 }));
 
 export class CodeEditor extends LitElement {
-	_eventBus = new ContextConsumer(this, {
-		context: eventBusContext,
-		callback: (bus) => {
-			this.eventBus = bus;
-		}
-	});
-
 	static properties = {
 		lang: { type: String },
 	};
@@ -143,6 +136,16 @@ export class CodeEditor extends LitElement {
 			await navigator.clipboard.writeText(this.view.state.doc.toString());
 		}
 	};
+
+	constructor() {
+		super();
+		new ContextConsumer(this, {
+			context: eventBusContext,
+			callback: (bus) => {
+				this.eventBus = bus;
+			}
+		});
+	}
 
 	render() {
 		return html`

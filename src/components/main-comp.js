@@ -8,20 +8,6 @@ export class MainComp extends LitElement {
 		initialValue: eventBus
 	});
 
-	constructor() {
-		super();
-		this.unbindLoaderRemover = eventBus.on('remove-loader', this.removeLoader);
-	}
-
-	disconnectedCallback() {
-		super.disconnectedCallback();
-		this.unbindLoaderRemover = eventBus.off('remove-loader', this.removeLoader);
-	}
-
-	removeLoader = () => {
-		this.querySelector('.loader').classList.remove('loader');
-	};
-
 	createRenderRoot() {
 		return this;
 	}

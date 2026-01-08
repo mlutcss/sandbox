@@ -5,12 +5,6 @@ import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CodePreview extends LitElement {
-	eventBusContext = new ContextConsumer(this, {
-		context: eventBusContext,
-		callback: (bus) => {
-			this.eventBus = bus;
-		}
-	});
 	_markupPath = 'index.html';
 
 	createRenderRoot() {
@@ -22,6 +16,7 @@ export class CodePreview extends LitElement {
 	};
 
 	async firstUpdated() {
+		this.iframeDoc = this.querySelector('iframe').contentDocument;
 		this.eventBus.on('update-html', this.handleUpdate);
 		this.eventBus.on('update-sass', this.handleUpdate);
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
@@ -70,11 +65,18 @@ export class CodePreview extends LitElement {
 	}
 
 	fillIframe(layout, styles) {
-		const doc = this.querySelector('iframe').contentDocument;
-		doc.head.innerHTML = `
-			<style>${styles}</style>
-		`;
-		doc.body.innerHTML = `${layout}`;
+		this.iframeDoc.head.innerHTML = `<style>${styles}</style>`;
+		this.iframeDoc.body.innerHTML = layout;
+	}
+
+	constructor() {
+		super();
+		new ContextConsumer(this, {
+			context: eventBusContext,
+			callback: (bus) => {
+				this.eventBus = bus;
+			}
+		});
 	}
 
 	render() {

@@ -1,8 +1,7 @@
 export const initialLayout = `
 <div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P-$heroPadding;0;5u D-f Jc-c Ai-c">
 	<div class="D-f Jc-c Ai-c Fld-c  wrapper">
-		<img class="D Mxw480 M0;a;5u W80p md_W100p"
-		 alt="mlut logo" src="/img/mlut.png">
+		<img class="D Mxw480 M0;a;5u W80p md_W100p" alt="mlut logo" src="/img/mlut.png">
 		<h1 class="Txa-c C-$accent900 Fns8u Lnh1.1 M0;0;5u P0;1u md_Fns10u">
 			Make CSS exciting again!
 		</h1>
@@ -10,23 +9,11 @@ export const initialLayout = `
 			md_Fns5.2u ">
 			Atomic CSS toolkit with Sass and ergonomics for creating styles of any complexity
 		</p>
-		<div class="D-f Fld-r W100p Flw-w Jc-c Gap3u M0;0;5u P0;5u">
-			<div class="W70p Mxw50u xl_Mxw55u H7u">
-			<button class="btn -Sz100p D-f Jc-c Ai-c P0;3u Fns0.8r Bdrd1u Ts-$shortTs Bd1;s;$brand Bgc-$brand Bgc-$brand500_h C#fff">
-				<div class=" D-f Jc-c Ai-c Fld-r Gap3u Fns1.1r ">
-					<div class="D Apcr1 W0.9r">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="D W100p Mxw25u Apcr1 Stw2 Fi-$brand St#fff">
-							<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-							<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-						</svg>
-					</div>
-					<span class="D Fns0.9r">
-						Getting started
-					</span>
-				</div>
-			</button>
-			</div>
-		</div>
+		<button class="btn W70p Mxw50u H8u P1u;3u Bdrd1u M0;a;5u Ts-$shortTs Bd1;s;$brand Bgc-$brand Bgc-$brand500_h C#fff">
+    		<span class="D Fns0.9r">
+				Getting started
+			</span>
+    </button>
 	</div>
 </div>
 `;

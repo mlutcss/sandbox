@@ -3,13 +3,6 @@ import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CopyButton extends LitElement {
-	_eventBus = new ContextConsumer(this, {
-		context: eventBusContext,
-		callback: (bus) => {
-			this.eventBus = bus;
-		}
-	});
-
 	static properties = {
 		lang: { type: String },
 		isClicked: { type: Boolean }
@@ -22,6 +15,12 @@ export class CopyButton extends LitElement {
 	constructor() {
 		super();
 		this.isClicked = false;
+		new ContextConsumer(this, {
+			context: eventBusContext,
+			callback: (bus) => {
+				this.eventBus = bus;
+			}
+		});
 	}
 
 	clickHandler() {
