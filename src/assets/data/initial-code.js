@@ -1,7 +1,7 @@
 export const initialLayout = `
 <div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P-$heroPadding;0;5u D-f Jc-c Ai-c">
 	<div class="D-f Jc-c Ai-c Fld-c  wrapper">
-		<img class="D Mxw480 M0;a;5u W80p md_W100p" alt="mlut logo" src="/img/mlut.png">
+		<img class="D Mxw480 M0;a;5u md_W100p" alt="mlut logo" src="/img/mlut.png">
 		<h1 class="Txa-c C-$accent900 Fns8u Lnh1.1 M0;0;5u P0;1u md_Fns10u">
 			Make CSS exciting again!
 		</h1>
@@ -9,7 +9,7 @@ export const initialLayout = `
 			md_Fns5.2u ">
 			Atomic CSS toolkit with Sass and ergonomics for creating styles of any complexity
 		</p>
-		<button class="btn W18gg Fns0.9r P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
+		<button class="btn Mnw18gg P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
 			Getting started
 		</button>
 	</div>
