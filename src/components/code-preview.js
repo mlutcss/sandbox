@@ -16,12 +16,12 @@ export class CodePreview extends LitElement {
 	};
 
 	async firstUpdated() {
-		this.iframeDoc = this.querySelector('iframe').contentDocument;
 		this.eventBus.on('update-html', this.handleUpdate);
 		this.eventBus.on('update-sass', this.handleUpdate);
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
 		this.mlutEngine = jitEngine;
+		this.iframeDoc = this.querySelector('iframe').contentDocument;
 		await this.updateCSS(initialLayout, initialConfig);
 		this.classList.remove('loader');
 	}

@@ -5,7 +5,7 @@
 	  <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mlut playground</title>
-    <link rel="stylesheet" href="src/assets/style/style.css" />
+    <link rel="stylesheet" href="assets/style.css" />
 	</head>
   <body class="P0 M0 H100vh">
     <header class="W100p H-$headerH Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
@@ -77,8 +77,9 @@
 				"imports": {
 					"immutable": "https://unpkg.com/immutable@^4.0.0",
 					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js",
-					"@octokit/plugin-retry": "/src/api/github/octokit.js",
-					"@octokit/rest": "/src/api/github/octokit.js"
+					"@octokit/plugin-retry": "/src/lib/engine-dependencies.js",
+					"@octokit/rest": "/src/lib/engine-dependencies.js",
+					"path-browserify-esm": "/src/lib/engine-dependencies.js"
 				}
 			}
 		</script>
@@ -87,7 +88,7 @@
 				['g' + 'it' + 'hub' + 'To' + 'ken']: 'g' + 'it' + 'hub_p' + 'at_11ACX5TXY0scktF',
 			};
 		</script>
-		<script type="module" src="/src/api/github/octokit.js"></script>
+		<script type="module" src="/src/lib/engine-dependencies.js"></script>
 		<script type="module" src="/src/assets/scripts/loader-helper.js"></script>
 		<script type="module" src="/src/assets/scripts/eventBusContext.js"></script>
 		<script type="module" src="/src/components/main-comp.js"></script>

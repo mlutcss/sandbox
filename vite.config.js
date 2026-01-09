@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 const mlut = vite({
 	input: 'src/assets/style/style.scss',
-	output: 'src/assets/style/style.css',
+	output: 'assets/style.css',
 	minify: true,
 });
 

@@ -20,7 +20,8 @@
     "@octokit/rest": "^22.0.1",
     "codemirror": "^6.0.2",
     "component-emitter": "^2.0.0",
-    "lit": "3.3.1"
+    "lit": "3.3.1",
+    "path-browserify-esm": "^1.0.6"
   },
   "devDependencies": {
     "@mlut/plugins": "^1.0.3",
