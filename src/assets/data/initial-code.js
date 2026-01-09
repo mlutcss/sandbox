@@ -9,9 +9,9 @@ export const initialLayout = `
 			md_Fns5.2u ">
 			Atomic CSS toolkit with Sass and ergonomics for creating styles of any complexity
 		</p>
-		<button class="btn W70p Mxw50u H8u Fns0.9r P1u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
+		<button class="btn W18gg Fns0.9r P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
 			Getting started
-    </button>
+		</button>
 	</div>
 </div>
 `;
