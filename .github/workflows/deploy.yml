@@ -9,7 +9,7 @@ jobs:
   deploy:
     name: Deploy playground to GitHub Pages
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout Git repository
         uses: actions/checkout@v2
       - name: Set up Node.js
@@ -22,6 +22,7 @@ jobs:
         run: npm run build
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v3
-        with: 
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: 'dist'
+          cname: 'play.mlut.style'
