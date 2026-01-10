@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
 	  <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<script type="module">
+			import engineUrl from './src/lib/engine-dependencies.entry.js?url';
+
+			const map = {
+				imports: {
+					"immutable": "https://unpkg.com/immutable@^4.0.0",
+					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js",
+					"@octokit/plugin-retry": engineUrl,
+					"@octokit/rest": engineUrl,
+				}
+			}
+
+			const importMapScript = document.createElement('script');
+			importMapScript.type = 'importmap';
+			importMapScript.textContent = JSON.stringify(map);
+			document.head.insertAdjacentElement('afterbegin',importMapScript)
+		</script>
+
     <title>mlut playground</title>
     <link rel="stylesheet" href="assets/style.css" />
 	</head>
@@ -72,22 +91,11 @@
 				</main>
 			</main-comp>
 		</div>
-		<script type="importmap">
-			{
-				"imports": {
-					"immutable": "https://unpkg.com/immutable@^4.0.0",
-					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js",
-					"@octokit/plugin-retry": "/src/lib/engine-dependencies.js",
-					"@octokit/rest": "/src/lib/engine-dependencies.js"
-				}
-			}
-		</script>
 		<script type="module">
 			globalThis.mlut = {
 				['g' + 'it' + 'hub' + 'To' + 'ken']: 'g' + 'it' + 'hub_p' + 'at_11ACX5TXY0scktF',
 			};
 		</script>
-		<script type="module" src="/src/lib/engine-dependencies.js"></script>
 		<script type="module" src="/src/assets/scripts/loader-helper.js"></script>
 		<script type="module" src="/src/assets/scripts/eventBusContext.js"></script>
 		<script type="module" src="/src/components/main-comp.js"></script>
