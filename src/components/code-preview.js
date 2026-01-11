@@ -2,46 +2,46 @@ import { LitElement, html } from 'lit';
 import { initialLayout, initialConfig, errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
-import { eventBusContext } from './main-comp.js';
+import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CodePreview extends LitElement {
-	_eventBus = new ContextConsumer(this, { context: eventBusContext });
 	_markupPath = 'index.html';
+	htmlLayout = initialLayout;
+	sassConfig = initialConfig;
 
 	createRenderRoot() {
 		return this;
 	}
 
 	static properties = {
-		htmlLayout: { type: String },
 		cssStyles: { type: String },
-		isValid: { type: Boolean },
-		inProgress: { type: Boolean },
 	};
 
 	async firstUpdated() {
-		this._eventBus.value.on('update-html', this.handleUpdate);
-		this._eventBus.value.on('update-sass', this.handleUpdate);
+		this.eventBus.on('update-html', this.handleUpdate);
+		this.eventBus.on('update-sass', this.handleUpdate);
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
 		this.mlutEngine = jitEngine;
+		this.iframeDoc = this.querySelector('iframe').contentDocument;
 		await this.updateCSS(initialLayout, initialConfig);
-		this.inProgress = false;
+		this.classList.remove('loader');
 	}
 
 	disconnectedCallback() {
-		this._eventBus.value.off('update-html', this.handleUpdate);
-		this._eventBus.value.off('update-sass', this.handleUpdate);
+		super.disconnectedCallback();
+		this.eventBus.off('update-html', this.handleUpdate);
+		this.eventBus.off('update-sass', this.handleUpdate);
 	}
 
 	handleUpdate = async (event) => {
 		if (event.detail.lang === 'html') {
 			this.htmlLayout = event.detail.updatedData;
 		} else if (event.detail.lang === 'sass') {
-			this.config = event.detail.updatedData;
+			this.sassConfig = event.detail.updatedData;
 		}
 
-		await this.updateCSS(this.htmlLayout, this.config, event.detail.lang);
+		await this.updateCSS(this.htmlLayout, this.sassConfig, event.detail.lang);
 	};
 
 	async updateCSS(layout, config, lang) {
@@ -53,8 +53,8 @@ export class CodePreview extends LitElement {
 		this.cssStyles = await this.mlutEngine.generateCss();
 
 		if (this.cssStyles) {
-			this.isValid = true;
-			this._eventBus.value.emit('update-css', {
+			this.fillIframe(layout, this.cssStyles);
+			this.eventBus.emit('update-css', {
 				detail: {
 					target: this,
 					updatedData: this.cssStyles,
@@ -62,43 +62,28 @@ export class CodePreview extends LitElement {
 				}
 			});
 		} else {
-			this.isValid = false;
+			this.fillIframe(errorLayout, errorStyles);
 		}
+	}
+
+	fillIframe(layout, styles) {
+		this.iframeDoc.head.innerHTML = `<style>${styles}</style>`;
+		this.iframeDoc.body.innerHTML = layout;
 	}
 
 	constructor() {
 		super();
-		this.htmlLayout = initialLayout;
-		this.config = initialConfig;
-		this.isValid = true;
-		this.inProgress = true;
+		new ContextConsumer(this, {
+			context: eventBusContext,
+			callback: (bus) => {
+				this.eventBus = bus;
+			}
+		});
 	}
 
 	render() {
-		if (this.inProgress) {
-			return html`
-				<content-loader></content-loader>
-			`;
-		}
-
-		return html`
-				<iframe srcdoc='<!DOCTYPE html>
-				<html lang="en">
-				<head>
-					<meta charset="UTF-8">
-					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<style>
-					${this.isValid ? this.cssStyles : errorStyles}
-					</style>
-				</head>
-				<body style="margin:0" class="">
-					${this.isValid ? this.htmlLayout : errorLayout}
-				</body>
-				</html>'
-				 class="D -Sz100p Bd-n P0">
-				</iframe>
-			`;
-
+		return html`<iframe class="-Sz100p Bd0" sandbox="allow-same-origin"></iframe>
+		`;
 	}
 }
 

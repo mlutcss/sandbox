@@ -1,10 +1,6 @@
 import { LitElement, html } from 'lit';
-import { ContextConsumer } from '@lit/context';
-import { eventBusContext } from './main-comp';
 
 export class StyleTab extends LitElement {
-	_eventBus = new ContextConsumer(this, { context: eventBusContext });
-
 	createRenderRoot() {
 		return this;
 	}

@@ -2,25 +2,17 @@
 <html lang="en" class="Fnf-mUss -HeaderH14u -SectionHeaderH10u">
   <head>
     <meta charset="UTF-8" />
-	  <link rel="icon" href="src/assets/img/favicon.png" type="image/x-icon">
+	  <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mlut playground</title>
     <link rel="stylesheet" href="assets/style.css" />
-		<script type="importmap">
-			{
-				"imports": {
-					"immutable": "https://unpkg.com/immutable@^4.0.0",
-					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js"
-				}
-			}
-		</script>
 	</head>
   <body class="P0 M0 H100vh">
     <header class="W100p H-$headerH Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
       <!-- Logo part-->
       <div class="W50p D-f Ai-c">
         <div class=" D-f Ai-fe Gap3u W100p">
-          <img class="D H7u" alt="mlut logo" src="src/assets/img/mlut.png">
+          <img class="D H7u" alt="mlut logo" src="/img/mlut.png">
           <span class="D-ib Fns5u C-$accent700">Playground</span>
         </div>
       </div>
@@ -40,9 +32,9 @@
 
 		</header>
 
-		<div class="H-calc(100%;-;var(--ml-headerH)) W100p Ps-r loader">
-			<main-comp class="H100p Ps-r ">
-				<main class="D-f Ai-str H100p Ps-r">
+		<div class="H-calc(100%;-;$headerH) W100p Ps loader">
+			<main-comp class="H100p Ps ">
+				<main class="D-f Ai-str H100p Ps">
 					<!-- Left part-->
 						<div class="W50p D-f Fld-c">
 							<!-- HTML sample's wrapper-->
@@ -64,36 +56,42 @@
 						</div>
 
 							<!-- The right part-->
-						<div class="W50p D-f Fld-c ">
+						<div class="W50p">
 								<!-- Preview part-->
-							<div class="Flg1 Bdl1;s;$accent700 D-f Fld-c">
+							<div class="H100p Bdl1;s;$accent700">
 									<!-- Header-->
-								<div class="H-$sectionHeaderH Flg0 P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
+								<div class="H-$sectionHeaderH P0;5u Bgc-$core800 Bdt1;s;$accent700 Bdb1;s;$accent700 D-f Jc-sb Ai-c">
 									<span class="C-$brand Fnw600"> Preview</span>
 								</div>
 								<!-- Preview's Body -->
-								<div class="H-calc(100%;-;$sectionHeaderH) Ps-r">
-									<code-preview class="preview-loader"></code-preview>
+								<div class="H-calc(100%;-;$sectionHeaderH) Ps Ovy-a Ovx-h">
+									<code-preview class="loader Zi8_b Zi9_af"></code-preview>
 								</div>
 							</div>
 						</div>
 				</main>
 			</main-comp>
 		</div>
+		<script type="importmap">
+			{
+				"imports": {
+					"immutable": "https://unpkg.com/immutable@^4.0.0",
+					"sass": "https://unpkg.com/sass@^1.63.0/sass.default.js"
+				}
+			}
+		</script>
 		<script type="module">
 			globalThis.mlut = {
 				['g' + 'it' + 'hub' + 'To' + 'ken']: 'g' + 'it' + 'hub_p' + 'at_11ACX5TXY0scktF',
 			};
 		</script>
 		<script type="module" src="/src/assets/scripts/loader-helper.js"></script>
+		<script type="module" src="/src/assets/scripts/eventBusContext.js"></script>
+		<script type="module" src="/src/components/main-comp.js"></script>
     <script type="module" src="/src/components/style-tab.js"></script>
     <script type="module" src="/src/components/copy-button.js"></script>
-		<script type="module" src="/src/components/content-loader.js"></script>
 		<script type="module" src="/src/components/code-editor.js"></script>
-		<script type="module" src="/src/components/code-preview.js"></script>
 		<script type="module" src="/src/components/tab-switch.js"></script>
-		<script type="module" src="/src/components/main-comp.js"></script>
-		<script type="module" src="https://unpkg.com/@mlut/core@latest/dist/index.js"></script>
-
+		<script type="module" src="/src/components/code-preview.js"></script>
   </body>
 </html>

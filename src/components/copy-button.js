@@ -1,10 +1,8 @@
 import { LitElement, html } from 'lit';
 import { ContextConsumer } from '@lit/context';
-import { eventBusContext } from './main-comp';
+import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CopyButton extends LitElement {
-	_eventBus = new ContextConsumer(this, { context: eventBusContext });
-
 	static properties = {
 		lang: { type: String },
 		isClicked: { type: Boolean }
@@ -17,12 +15,18 @@ export class CopyButton extends LitElement {
 	constructor() {
 		super();
 		this.isClicked = false;
+		new ContextConsumer(this, {
+			context: eventBusContext,
+			callback: (bus) => {
+				this.eventBus = bus;
+			}
+		});
 	}
 
 	clickHandler() {
 		try {
 			this.isClicked = true;
-			this._eventBus.value.emit('request-copy', {
+			this.eventBus.emit('request-copy', {
 				detail: {
 					lang: this.lang,
 				}
@@ -41,11 +45,11 @@ export class CopyButton extends LitElement {
 			<button @click="${this.clickHandler}" class="D -Sz8u Bd-n Bdrd2u Bgc-tp Bgc-$brand_h -Ts -Ctx-button">
 				<svg class="-Sz100p St-$accent800 Tsd-ih ^button:h:_St-$core800"
 					style="display: ${this.isClicked ? 'none' : 'block'}">
-					<use href="src/assets/img/icons.svg#copy"></use>
+					<use href="/img/icons.svg#copy"></use>
 				</svg>
 				<svg class="-Sz100p St-$accent800 Tsd-ih ^button:h:_St-$core800"
 					style="display: ${this.isClicked ? 'block' : 'none'}">
-					<use href="src/assets/img/icons.svg#check"></use>
+					<use href="/img/icons.svg#check"></use>
 				</svg>
 			</button>
 		`;

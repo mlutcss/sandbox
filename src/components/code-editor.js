@@ -12,7 +12,7 @@ import { css as langCSS } from '@codemirror/lang-css';
 import { sass as langSASS } from '@codemirror/lang-sass';
 
 import { initialLayout, initialConfig } from '../assets/data/initial-code.js';
-import { eventBusContext } from './main-comp';
+import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 const customTheme = Prec.highest(EditorView.theme({
 	'.cm-scroller': {
@@ -24,12 +24,8 @@ const customTheme = Prec.highest(EditorView.theme({
 }));
 
 export class CodeEditor extends LitElement {
-	_eventBus = new ContextConsumer(this, { context: eventBusContext });
-
 	static properties = {
 		lang: { type: String },
-		timeoutID: { type: Number, state: false },
-		view: { type: Object },
 	};
 
 	createRenderRoot() {
@@ -40,18 +36,20 @@ export class CodeEditor extends LitElement {
 		this.view = new EditorView(this.setEditorOptions(this.lang));
 
 		if (this.lang === 'css') {
-			this._eventBus.value.on('update-css', this.updateCss);
+			this.eventBus.on('update-css', this.updateCss);
 		}
 
-		this._eventBus.value.on('request-copy', this.handleCopy);
+		this.eventBus.on('request-copy', this.handleCopy);
 	}
 
 	disconnectedCallback() {
+		super.disconnectedCallback();
+
 		if (this.lang === 'css') {
-			this._eventBus.value.off('update-css', this.updateCss);
+			this.eventBus.off('update-css', this.updateCss);
 		}
 
-		this._eventBus.value.off('request-copy', this.handleCopy);
+		this.eventBus.off('request-copy', this.handleCopy);
 	}
 
 	setEditorOptions(lang) {
@@ -102,12 +100,12 @@ export class CodeEditor extends LitElement {
 	setDocChangeHandler() {
 		return EditorView.updateListener.of((update) => {
 			if (update.docChanged) {
-				clearTimeout(this.timeoutID);
+				clearTimeout(this.debounceTimeout);
 
 				if (this.lang !== 'css') {
-					this.timeoutID = setTimeout(() => {
+					this.debounceTimeout = setTimeout(() => {
 
-						this._eventBus.value.emit(`update-${this.lang}`, {
+						this.eventBus.emit(`update-${this.lang}`, {
 							detail: {
 								target: this,
 								updatedData: update.state.doc.toString(),
@@ -139,9 +137,19 @@ export class CodeEditor extends LitElement {
 		}
 	};
 
+	constructor() {
+		super();
+		new ContextConsumer(this, {
+			context: eventBusContext,
+			callback: (bus) => {
+				this.eventBus = bus;
+			}
+		});
+	}
+
 	render() {
 		return html`
-		<div id="${this.lang}-editor" class="H100p Bgc-$core700 Ov-a Fns10u" style="height: ${this.inProgress ? '0' : '100%'}">
+		<div id="${this.lang}-editor" class="H100p Bgc-$core750 Ov-a Fns4u">
 		</div>
 		`;
 	}

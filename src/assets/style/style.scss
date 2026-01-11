@@ -12,6 +12,7 @@ html {
 @media (prefers-color-scheme: light){
   html {
     --ml-core800: #f0f0f1;
+		--ml-core750: #fbf9fe;
     --ml-core700: #fbf9fe;
     --ml-accent800:#707481;
     --ml-accent700: #7c7f8b;
@@ -20,6 +21,7 @@ html {
 @media (prefers-color-scheme: dark){
   html {
     --ml-core800: #111827;
+		--ml-core750: #282c34;
     --ml-core700: #0d1117;
     --ml-accent800:#878c99;
     --ml-accent700: #7f838f;
