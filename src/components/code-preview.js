@@ -6,6 +6,8 @@ import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 export class CodePreview extends LitElement {
 	_markupPath = 'index.html';
+	htmlLayout = initialLayout;
+	sassConfig = initialConfig;
 
 	createRenderRoot() {
 		return this;
@@ -86,4 +88,3 @@ export class CodePreview extends LitElement {
 }
 
 customElements.define('code-preview', CodePreview);
-
