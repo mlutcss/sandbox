@@ -1,12 +1,11 @@
 export const initialLayout = `
-<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P-$heroPadding;0;5u D-f Jc-c Ai-c">
-	<div class="D-f Jc-c Ai-c Fld-c  wrapper">
+<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P5u;0 D-f Jc-c Ai-c">
+	<div class="D-f Jc-c Ai-c Fld-c wrapper">
 		<img class="D Mxw480 M0;a;5u md_W100p" alt="mlut logo" src="/img/mlut.png">
 		<h1 class="Txa-c C-$accent900 Fns8u Lnh1.1 M0;0;5u P0;1u md_Fns10u">
 			Make CSS exciting again!
 		</h1>
-		<p class="C-$accent850 M0;0;5u P0;2u Mxw750 Txa-c Fns4.4u
-			md_Fns5.2u ">
+		<p class="C-$accent850 M0;0;5u P0;2u Mxw750 Txa-c Fns4.4u md_Fns5.2u">
 			Atomic CSS toolkit with Sass and ergonomics for creating styles of any complexity
 		</p>
 		<button class="btn Mnw18gg P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
