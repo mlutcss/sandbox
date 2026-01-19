@@ -1,16 +1,16 @@
 export const initialLayout = `
-<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P5u;0 D-f Jc-c Ai-c">
+<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P5u;0 D-f Jc-c Ai-c -RedA-red -RedB#b10">
   <div class="D-f Jc-c Ai-c Fld-c wrapper">
     <img class="D Mxw480 W60p M0;a;15u md_W100p" alt="mlut logo" src="/img/mlut.png">
     <div class="Ps W15p Apcr1 Tf -Rt45d Mb10u">
-      <div class="-Sz100p -Gdl-45d,#b70000,red;30p,red;80p,#b70000"></div>
-      <div class="-Sz100p Bgc-red Ps-a T-50p Bdrd100p -Gdl-90d,red,red;80p,#b70000"></div>
-      <div class="-Sz100p Bgc-red Ps-a L-50p T0 Bdrd100p -Gdl-90d,red,red;80p,#b70000">
+      <div class="-Sz100p -Gdl-45d,$redB,$redA;30p,$redA;80p,$redB"></div>
+      <div class="-Sz100p Ps-a T-50p Bdrd100p -Gdl-90d,$redA,$redA;80p,$redB"></div>
+      <div class="-Sz100p Ps-a L-50p T0 Bdrd100p -Gdl-90d,$redA,$redA;80p,$redB">
       </div>
     </div>
-    <h1 class="Txa-c C-$accent900 Fns8u Lnh1.1 M0;0;5u P0;1u md_Fns10u">
+    <strong class="Txa-c C-$accent900 Fns8u Lnh1.1 M0;0;5u P0;1u md_Fns10u">
       Creative coding!
-    </h1>
+    </strong>
     <p class="C-$accent900 M0;0;10u Fns5u">
       Yes, you can create pure CSS art using utility classes!
     </p>
@@ -25,6 +25,7 @@ export const initialConfig = `
 
 :root {
 	--ml-brand:#f0438c;
+	--ml-brand500:rgb(233,30,99);
 }
 
 @media (prefers-color-scheme: dark){
