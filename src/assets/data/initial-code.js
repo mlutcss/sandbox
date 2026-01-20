@@ -1,20 +1,20 @@
 export const initialLayout = `
-<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P15u;0">
-  <div class="wrapper">
-    <img class="D Mxw380 W60p M0;a;15u" alt="mlut logo" src="/img/mlut.png">
-    <div class="Ps W12p Apcr1 Tf -Rt45d M0;a;10u -RedA-red -RedB#b10">
+<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh D-f Jc-c Ai-c P15u;0">
+  <div class="wrapper Txa-c">
+    <img class="Mxw480 W100p Mb15u" alt="mlut logo" src="/img/mlut.png">
+    <div class="Ps W20p Apcr1 Tf -Rt45d M0;a;10u -RedA-red -RedB#b10">
       <div class="-Sz100p -Gdl-45d,$redB,$redA;30p,$redA;80p,$redB"></div>
       <div class="-Sz100p Ps-a T-50p Bdrd100p -Gdl-90d,$redA,$redA;80p,$redB"></div>
       <div class="-Sz100p Ps-a L-50p T0 Bdrd100p -Gdl-90d,$redA,$redA;80p,$redB">
       </div>
     </div>
-    <strong class="D Txa-c C-$accent900 Fns8u M0;a;5u">
+    <strong class="D C-$accent900 Fns8u Mb5u">
       Creative coding!
     </strong>
-    <p class="Txa-c C-$accent900 Fns5u M0;0;10u">
+    <p class="C-$accent900 Fns5u M0;0;8u">
       Yes, you can create pure CSS art using utility classes!
     </p>
-    <button class="btn D M-a Mnw16gg P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
+    <button class="btn Mnw16gg P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
   	  Getting started
 	</button>
   </div>
