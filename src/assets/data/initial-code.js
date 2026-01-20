@@ -1,17 +1,23 @@
 export const initialLayout = `
-<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh P5u;0 D-f Jc-c Ai-c">
-	<div class="D-f Jc-c Ai-c Fld-c wrapper">
-		<img class="D Mxw480 M0;a;5u md_W100p" alt="mlut logo" src="/img/mlut.png">
-		<h1 class="Txa-c C-$accent900 Fns8u Lnh1.1 M0;0;5u P0;1u md_Fns10u">
-			Make CSS exciting again!
-		</h1>
-		<p class="C-$accent850 M0;0;5u P0;2u Mxw750 Txa-c Fns4.4u md_Fns5.2u">
-			Atomic CSS toolkit with Sass and ergonomics for creating styles of any complexity
-		</p>
-		<button class="btn Mnw18gg P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
-			Getting started
-		</button>
-	</div>
+<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh D-f Jc-c Ai-c P15u;0">
+  <div class="wrapper Txa-c">
+    <img class="Mxw480 W100p Mb15u" alt="mlut logo" src="/img/mlut.png">
+    <div class="Ps W20p Apcr1 Tf -Rt45d M0;a;10u -RedA-red -RedB#b10">
+      <div class="-Sz100p -Gdl-45d,$redB,$redA;30p,$redA;80p,$redB"></div>
+      <div class="-Sz100p Ps-a T-50p Bdrd100p -Gdl-90d,$redA,$redA;80p,$redB"></div>
+      <div class="-Sz100p Ps-a L-50p T0 Bdrd100p -Gdl-90d,$redA,$redA;80p,$redB">
+      </div>
+    </div>
+    <strong class="D C-$accent900 Fns8u Mb5u">
+      Creative coding!
+    </strong>
+    <p class="C-$accent900 Fns5u M0;0;8u">
+      Yes, you can create pure CSS art using utility classes!
+    </p>
+    <button class="btn Mnw16gg P2u;3u Bdrd1u Bgc-$brand Bgc-$brand500_h C#fff">
+  	  Getting started
+	</button>
+  </div>
 </div>
 `;
 export const initialConfig = `
@@ -25,7 +31,6 @@ export const initialConfig = `
 @media (prefers-color-scheme: dark){
   :root{
     --ml-accent900:#fff;
-    --ml-accent850:rgb(209,213,219,1);
     --ml-core750:#121828;
     --ml-core650:#251942;
     --ml-core600:#321933;
@@ -35,7 +40,6 @@ export const initialConfig = `
 @media (prefers-color-scheme: light){
   :root{
     --ml-accent900:rgb(17,24,39);
-    --ml-accent850:rgb(41,42,51,1);
     --ml-core750:rgb(236,240,246,0.5);
     --ml-core650:rgba(218,178,255,0.1);
     --ml-core600:rgba(142,197,255,0.4);
