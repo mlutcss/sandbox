@@ -8,27 +8,34 @@
     <link rel="stylesheet" href="assets/style.css" />
 	</head>
   <body class="P0 M0 H100vh">
-    <header class="W100p H-$headerH Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
+    <header class="W100p H-$headerH Mxh18u D-g Gtc1fr;1fr;1fr P2u;5u Bgc-$core700">
+
+
+			<tool-bar></tool-bar>
+
       <!-- Logo part-->
-      <div class="W50p D-f Ai-c">
-        <div class=" D-f Ai-fe Gap3u W100p">
+
+			<div class="W100p D-f Ai-c Jc-c Gap4u">
+        <div class=" D-f Ai-fe Gap3u">
           <img class="D H7u" alt="mlut logo" src="/img/mlut.png">
           <span class="D-ib Fns5u C-$accent700">Playground</span>
         </div>
       </div>
 
+
 			<!-- Navbar-->
 
-      <nav class=" D-f Ai-c Jc-fe P1u;3u">
-        <ul class="Lsst-n D-f Jc-c Gap4u Ai-c P0 Fns5u M0">
-          <li class="M0">
-            <a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Main</a>
-          </li>
-          <li class="M0">
-            <a href="https://docs.mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Docs</a>
-          </li>
-        </ul>
-      </nav>
+			<nav class=" D-f Ai-c Jc-fe P1u;3u">
+				<ul class="Lsst-n D-f Jc-c Gap4u Ai-c P0 Fns5u M0">
+					<li class="M0">
+						<a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Main</a>
+					</li>
+					<li class="M0">
+						<a href="https://mlutcss.github.io/mlut/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Docs</a>
+					</li>
+				</ul>
+			</nav>
+
 
 		</header>
 
@@ -61,6 +68,7 @@
 							<div class="H100p Bdl1;s;$accent700">
 								<!-- Preview's Body -->
 								<div class="H100p Ps Ovy-a Ovx-h Bdt1;s;$accent800">
+
 									<code-preview class="loader Zi8_b Zi9_af"></code-preview>
 								</div>
 							</div>
@@ -81,6 +89,7 @@
 				['g' + 'it' + 'hub' + 'To' + 'ken']: 'g' + 'it' + 'hub_p' + 'at_11ACX5TXY0scktF',
 			};
 		</script>
+		<script type="module" src="/src/components/tool-bar.js"></script>
 		<script type="module" src="/src/assets/scripts/loader-helper.js"></script>
 		<script type="module" src="/src/assets/scripts/eventBusContext.js"></script>
 		<script type="module" src="/src/components/main-comp.js"></script>
