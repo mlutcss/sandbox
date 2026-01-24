@@ -18,8 +18,7 @@ export class CodePreview extends LitElement {
 	};
 
 	async firstUpdated() {
-		this.eventBus.on('update-html', this.handleUpdate);
-		this.eventBus.on('update-sass', this.handleUpdate);
+		this.eventBus.on('update-code', this.handleUpdate);
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		await jitEngine.init(['config.scss', initialConfig]);
 		this.mlutEngine = jitEngine;
@@ -30,8 +29,7 @@ export class CodePreview extends LitElement {
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.eventBus.off('update-html', this.handleUpdate);
-		this.eventBus.off('update-sass', this.handleUpdate);
+		this.eventBus.off('update-code', this.handleUpdate);
 	}
 
 	handleUpdate = async (event) => {

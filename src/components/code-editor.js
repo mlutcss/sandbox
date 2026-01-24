@@ -105,7 +105,7 @@ export class CodeEditor extends LitElement {
 				if (this.lang !== 'css') {
 					this.debounceTimeout = setTimeout(() => {
 
-						this.eventBus.emit(`update-${this.lang}`, {
+						this.eventBus.emit('update-code', {
 							detail: {
 								target: this,
 								updatedData: update.state.doc.toString(),

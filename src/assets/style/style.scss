@@ -2,6 +2,7 @@
 
 html {
 	--ml-brand:#f0438c;
+	--ml-brand500:rgb(233,30,99);
 }
 
 * {
@@ -16,6 +17,8 @@ html {
     --ml-core700: #fbf9fe;
     --ml-accent800:#707481;
     --ml-accent700: #7c7f8b;
+		--ml-accent900: #0d1117;
+		--ml-error: #f5b2b2;
   }
 }
 @media (prefers-color-scheme: dark){
@@ -25,6 +28,8 @@ html {
     --ml-core700: #0d1117;
     --ml-accent800:#878c99;
     --ml-accent700: #7f838f;
+		--ml-accent900: #e2e2e2;
+		--ml-error: #a01010;
   }
 }
 
