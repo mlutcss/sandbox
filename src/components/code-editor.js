@@ -36,7 +36,7 @@ export class CodeEditor extends LitElement {
 			this.eventBus.on('update-css', this.updateCss);
 		}
 
-		this.eventBus.on('first-update', this.handleFirstUpdate)
+		this.eventBus.on('first-update', this.handleFirstUpdate);
 		this.eventBus.on('request-copy', this.handleCopy);
 	}
 
@@ -52,12 +52,13 @@ export class CodeEditor extends LitElement {
 
 	handleFirstUpdate = (event) => {
 		if (this.lang === 'html') {
-			this.htmlLayout = event.detail.html
-		} else if (this.lang === 'sass'){
-			this.sassConfig = event.detail.sass
+			this.htmlLayout = event.detail.html;
+		} else if (this.lang === 'sass') {
+			this.sassConfig = event.detail.sass;
 		}
+
 		this.view = new EditorView(this.setEditorOptions(this.lang));
-	}
+	};
 
 	setEditorOptions(lang) {
 		const editorSettings = {
@@ -82,7 +83,7 @@ export class CodeEditor extends LitElement {
 
 			return {
 				...editorSettings,
-				doc: this.htmlLayout.trim(),
+				doc: this.htmlLayout,
 			};
 		case 'css':
 			editorSettings.extensions.push(
@@ -99,7 +100,7 @@ export class CodeEditor extends LitElement {
 
 			return {
 				...editorSettings,
-				doc: this.sassConfig.trim(),
+				doc: this.sassConfig,
 			};
 		}
 	}

@@ -17,7 +17,7 @@ export class CodePreview extends LitElement {
 
 	async firstUpdated() {
 		this.eventBus.on('update-code', this.handleUpdate);
-		this.eventBus.on('first-update', this.handleFirstUpdate)
+		this.eventBus.on('first-update', this.handleFirstUpdate);
 
 	}
 
@@ -35,7 +35,7 @@ export class CodePreview extends LitElement {
 		this.iframeDoc = this.querySelector('iframe').contentDocument;
 		await this.updateCSS(this.htmlLayout, this.sassConfig);
 		this.classList.remove('loader');
-	}
+	};
 
 	handleUpdate = async (event) => {
 		if (event.detail.lang === 'html') {

@@ -1,5 +1,4 @@
-export const initialLayout = `
-<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh D-f Jc-c Ai-c P15u;0">
+export const defaultLayout = `<div class="-Gdl120d,$core750,$core650,$core600 Fnf-mUss H100vh D-f Jc-c Ai-c P15u;0">
   <div class="wrapper Txa-c">
     <img class="Mxw480 W100p Mb15u" alt="mlut logo" src="/img/mlut.png">
     <div class="Ps W20p Apcr1 Tf -Rt45d M0;a;10u -RedA-red -RedB#b10">
@@ -20,8 +19,7 @@ export const initialLayout = `
   </div>
 </div>
 `;
-export const initialConfig = `
-@use "@mlut/core";
+export const defaultConfig = `@use "@mlut/core";
 
 :root {
 	--ml-brand:#f0438c;

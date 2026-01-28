@@ -1,48 +1,48 @@
 class Client {
-	static apiUrl = ''
-	static editorsKey = ''
+	static apiUrl = '';
+	static editorsKey = '';
+	static sketchId = '';
 
-	async makeRequest(path, method = "GET", data = {}){
+	async makeRequest(path, method = 'GET', data = {}) {
 		const ucMethod = method.toUpperCase();
-
 		const options = {
-			ucMethod,
+			method,
 			headers: {
-				'Authorization': `${this.editorsKey}`,
+				'Authorization': `Bearer ${this.editorsKey}`,
 			}
+		};
+
+		if (ucMethod === 'POST' || ucMethod === 'PUT') {
+			options.body = JSON.stringify(data);
+			options.headers['Content-Type'] = 'application/json';
 		}
 
-		if (ucMethod === 'POST' || ucMethod === 'PUT'){
-			options.body = JSON.stringify(data)
-			options.headers['Content-Type'] = 'application/json'
-		}
-
-		console.log(`${this.apiUrl}` + path)
-
-		return fetch (
+		return fetch(
 			`${this.apiUrl}` + path,
 			options
 		).then((resp) => {
-			 if (resp.ok && resp.status >= 200 && resp.status < 400) {
-        return resp.json();
-      }
+			if (resp.ok && resp.status >= 200 && resp.status < 400) {
+				return resp.json();
+			}
 
-      throw new Error(`Invalid response: ${resp.status}`);
-		})
+			throw new Error(`Invalid response: ${resp.status}`);
+		});
 	}
 
-	async getInitialCode(path){
-		return await this.makeRequest(path)
+	async getInitialCode(path) {
+		return await this.makeRequest(path);
 	}
 
-	createNewSketch(){
-
+	async createNewSketch(path, method = 'POST', data) {
+		console.log(method);
+		return await this.makeRequest(path, method, data);
 	}
 
-	updateSketch(){
-
+	async updateSketch(path, method = 'PUT', data) {
+		console.log(method);
+		return await this.makeRequest(path, method, data);
 	}
 
 }
 
-export const client = new Client()
+export const client = new Client();
