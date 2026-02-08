@@ -3,6 +3,9 @@ import { errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
+import { currentCodeContext } from './main-comp.js';
+
+import { events } from '../assets/data/events.js';
 
 export class CodePreview extends LitElement {
 	_markupPath = 'index.html';
@@ -16,25 +19,35 @@ export class CodePreview extends LitElement {
 	};
 
 	async firstUpdated() {
-		this.eventBus.on('update-code', this.handleUpdate);
-		this.eventBus.on('editor-init', this.handleFirstUpdate);
+		this.eventBus.on(events.updateCode, this.handleUpdate);
+		this.eventBus.on(events.editorInit, this.handleFirstUpdate);
+
+		if (this.currentCode.currentLayout) {
+			this.htmlLayout = this.currentCode.currentLayout;
+			this.sassConfig = this.currentCode.currentConfig;
+			await this.initJitEngine();
+		}
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.eventBus.off('update-code', this.handleUpdate);
+		this.eventBus.off(events.updateCode, this.handleUpdate);
 	}
 
 	handleFirstUpdate = async (event) => {
 		this.htmlLayout = event.detail.html;
 		this.sassConfig = event.detail.sass;
+		await this.initJitEngine();
+	};
+
+	async initJitEngine() {
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		this.mlutEngine = jitEngine;
 		await this.mlutEngine.init(['config.scss', this.sassConfig]);
 		this.iframeDoc = this.querySelector('iframe').contentDocument;
 		await this.updateCSS(this.htmlLayout, this.sassConfig);
 		this.classList.remove('loader');
-	};
+	}
 
 	handleUpdate = async (event) => {
 		if (event.detail.lang === 'html') {
@@ -56,7 +69,7 @@ export class CodePreview extends LitElement {
 
 		if (this.cssStyles) {
 			this.fillIframe(layout, this.cssStyles);
-			this.eventBus.emit('update-css', {
+			this.eventBus.emit(events.updateCss, {
 				detail: {
 					target: this,
 					updatedData: this.cssStyles,
@@ -79,6 +92,12 @@ export class CodePreview extends LitElement {
 			context: eventBusContext,
 			callback: (bus) => {
 				this.eventBus = bus;
+			}
+		});
+		new ContextConsumer(this, {
+			context: currentCodeContext,
+			callback: (currentCode) => {
+				this.currentCode = currentCode;
 			}
 		});
 	}

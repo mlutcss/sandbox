@@ -1,8 +1,17 @@
 import { LitElement } from 'lit';
 import { ContextProvider } from '@lit/context';
+import { createContext } from '@lit/context';
 import { eventBusContext, eventBus } from '/src/assets/scripts/eventBusContext.js';
-import { eleventyClient } from '../assets/scripts/eleventy-client.js';
-import { defaultConfig, defaultLayout } from '../assets/data/initial-code.js';
+import { websiteClient } from '../assets/scripts/website-client.js';
+import { defaultConfig, defaultLayout, fallbackConfig } from '../assets/data/initial-code.js';
+import { events } from '../assets/data/events.js';
+
+export const currentCodeContext = createContext('currentCodeContext');
+
+const currentCode = {
+	currentLayout: '',
+	currentConfig: ''
+};
 
 export class MainComp extends LitElement {
 	_provider = new ContextProvider(this, {
@@ -10,39 +19,46 @@ export class MainComp extends LitElement {
 		initialValue: eventBus
 	});
 
-	checkpointLayout = ''
-	checkpointConfig = ''
-	currentLayout = ''
-	currentConfig = ''
+	_currentCodeProvider = new ContextProvider(this, {
+		context: currentCodeContext,
+		initialValue: currentCode
+	});
+
+	checkpointLayout = '';
+	checkpointConfig = '';
 
 	async firstUpdated() {
-		await eleventyClient.getInitialCode(eleventyClient.sourceId)
-		.then((res) => {
-			this.checkpointLayout = res;
-			this.checkpointConfig = '@use \'@mlut/core\';'
-		})
-		.catch((e) => {
-			console.log(e)
+		if (websiteClient.sourceId) {
+			await websiteClient.getInitialCode(websiteClient.sourceId)
+				.then((res) => {
+					this.checkpointLayout = res.replaceAll('\n\n', '').trim();
+					this.checkpointConfig = fallbackConfig;
+				})
+				.catch((e) => {
+					console.log(e);
+					this.checkpointLayout = defaultLayout;
+					this.checkpointConfig = defaultConfig;
+
+					eventBus.emit(events.showError, {
+						detail: {
+							description: 'wrong-art'
+						}
+					});
+				});
+		} else {
 			this.checkpointLayout = defaultLayout;
-			this.checkpointConfig = defaultConfig
+			this.checkpointConfig = defaultConfig;
+		}
 
-			eventBus.emit('show-error', {
-				detail: {
-					description: 'wrong-art'
-				}
-			});
-		})
+		currentCode.currentLayout = this.checkpointLayout;
+		currentCode.currentConfig = this.checkpointConfig;
 
-		this.currentLayout = this.checkpointLayout;
-		this.currentConfig = this.checkpointConfig;
-
-		eventBus.emit('editor-init', {
+		eventBus.emit(events.editorInit, {
 			detail: {
 				html: this.checkpointLayout,
 				sass: this.checkpointConfig
 			}
 		});
-		console.log('The editor-init event should have been emitted')
 
 		this.dispatchEvent(new CustomEvent('remove-loader', { bubbles: true }));
 	}

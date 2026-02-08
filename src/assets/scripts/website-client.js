@@ -1,4 +1,4 @@
-export class EleventyClient {
+export class WebsiteClient {
 	apiUrl = "https://mlut.style/art-api/"
 	urlParams = new URLSearchParams(window.location.search)
 	sourceId = this.urlParams.get('art')
@@ -21,4 +21,4 @@ export class EleventyClient {
 	}
 }
 
-export const eleventyClient = new EleventyClient();
+export const websiteClient = new WebsiteClient();

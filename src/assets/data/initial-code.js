@@ -86,3 +86,11 @@ export const errorStyles = `
 		margin: 0 0 1rem
 	}
 `;
+
+export const fallbackConfig = `@use \'@mlut/core\';
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #111827;
+	}
+}`
