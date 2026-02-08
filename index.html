@@ -5,35 +5,32 @@
 	  <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mlut playground</title>
-    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="src/assets/style/style.css" />
 	</head>
   <body class="P0 M0 H100vh">
-    <header class="W100p H-$headerH Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
-      <!-- Logo part-->
-      <div class="W50p D-f Ai-c">
-        <div class=" D-f Ai-fe Gap3u W100p">
-          <img class="D H7u" alt="mlut logo" src="/img/mlut.png">
-          <span class="D-ib Fns5u C-$accent700">Playground</span>
-        </div>
-      </div>
+		<main-comp class="H100p Ps ">
+			<header class="W100p Ps H-$headerH Mxh18u D-g Gtc1fr;1fr P2u;5u Bgc-$core700">
+				<!-- Logo part-->
+				<div class="W100p D-f Ai-c Jc-fs Gap4u">
+					<div class=" D-f Ai-fe Gap3u">
+						<img class="D H7u" alt="mlut logo" src="/img/mlut.png">
+						<span class="D-ib Fns5u C-$accent700">Playground</span>
+					</div>
+				</div>
+				<!-- Navbar-->
+				<nav class=" D-f Ai-c Jc-fe P1u;3u W100p">
+					<ul class="Lsst-n D-f Jc-c Gap4u Ai-c P0 Fns5u M0">
+						<li class="M0">
+							<a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Main</a>
+						</li>
+						<li class="M0">
+							<a href="https://docs.mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Docs</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
 
-			<!-- Navbar-->
-
-      <nav class=" D-f Ai-c Jc-fe P1u;3u">
-        <ul class="Lsst-n D-f Jc-c Gap4u Ai-c P0 Fns5u M0">
-          <li class="M0">
-            <a href="https://mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Main</a>
-          </li>
-          <li class="M0">
-            <a href="https://docs.mlut.style/" class="Txd-n C-$accent800 C-$brand_h -Ts Fnw600"> Docs</a>
-          </li>
-        </ul>
-      </nav>
-
-		</header>
-
-		<div class="H-calc(100%;-;$headerH) W100p Ps loader">
-			<main-comp class="H100p Ps ">
+			<div class="H-calc(100%;-;$headerH) W100p Ps loader">
 				<main class="D-f Ai-str H100p Ps">
 					<!-- Left part-->
 						<div class="W50p D-f Fld-c">
@@ -50,12 +47,12 @@
 								</div>
 							</div>
 								<!-- CSS sample's wrapper-->
-								<div class="H50p">
-									<tab-switch></tab-switch>
-								</div>
+							<div class="H50p">
+								<tab-switch></tab-switch>
+							</div>
 						</div>
 
-							<!-- The right part-->
+								<!-- The right part-->
 						<div class="W50p">
 								<!-- Preview part-->
 							<div class="H100p Bdl1;s;$accent700">
@@ -66,8 +63,8 @@
 							</div>
 						</div>
 				</main>
-			</main-comp>
-		</div>
+			</div>
+		</main-comp>
 		<script type="importmap">
 			{
 				"imports": {
@@ -78,15 +75,15 @@
 		</script>
 		<script type="module">
 			globalThis.mlut = {
-				['g' + 'it' + 'hub' + 'To' + 'ken']: 'g' + 'it' + 'hub_p' + 'at_11ACX5TXY0scktF',
+				['g' + 'it' + 'hub' + 'To' + 'ken']: 'g' + 'it' + 'hub_p' + 'at_11ACX5TXY0',
 			};
 		</script>
 		<script type="module" src="/src/assets/scripts/loader-helper.js"></script>
 		<script type="module" src="/src/assets/scripts/eventBusContext.js"></script>
 		<script type="module" src="/src/components/main-comp.js"></script>
+		<script type="module" src="/src/components/code-editor.js"></script>
     <script type="module" src="/src/components/style-tab.js"></script>
     <script type="module" src="/src/components/copy-button.js"></script>
-		<script type="module" src="/src/components/code-editor.js"></script>
 		<script type="module" src="/src/components/tab-switch.js"></script>
 		<script type="module" src="/src/components/code-preview.js"></script>
   </body>

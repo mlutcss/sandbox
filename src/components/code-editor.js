@@ -11,7 +11,6 @@ import { html as langHTML } from '@codemirror/lang-html';
 import { css as langCSS } from '@codemirror/lang-css';
 import { sass as langSASS } from '@codemirror/lang-sass';
 
-import { initialLayout, initialConfig } from '../assets/data/initial-code.js';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
 
 const customTheme = Prec.highest(EditorView.theme({
@@ -33,12 +32,11 @@ export class CodeEditor extends LitElement {
 	}
 
 	firstUpdated() {
-		this.view = new EditorView(this.setEditorOptions(this.lang));
-
 		if (this.lang === 'css') {
 			this.eventBus.on('update-css', this.updateCss);
 		}
 
+		this.eventBus.on('editor-init', this.handleFirstUpdate);
 		this.eventBus.on('request-copy', this.handleCopy);
 	}
 
@@ -51,6 +49,19 @@ export class CodeEditor extends LitElement {
 
 		this.eventBus.off('request-copy', this.handleCopy);
 	}
+
+	handleFirstUpdate = (event) => {
+		console.log(event)
+		if (this.lang === 'html') {
+			this.htmlLayout = event.detail.html;
+			console.log(this.htmlLayout)
+		} else if (this.lang === 'sass') {
+			this.sassConfig = event.detail.sass;
+			console.log(this.sassConfig)
+		}
+
+		this.view = new EditorView(this.setEditorOptions(this.lang));
+	};
 
 	setEditorOptions(lang) {
 		const editorSettings = {
@@ -75,7 +86,7 @@ export class CodeEditor extends LitElement {
 
 			return {
 				...editorSettings,
-				doc: initialLayout.trim(),
+				doc: this.htmlLayout,
 			};
 		case 'css':
 			editorSettings.extensions.push(
@@ -92,7 +103,7 @@ export class CodeEditor extends LitElement {
 
 			return {
 				...editorSettings,
-				doc: initialConfig.trim(),
+				doc: this.sassConfig,
 			};
 		}
 	}
@@ -105,7 +116,7 @@ export class CodeEditor extends LitElement {
 				if (this.lang !== 'css') {
 					this.debounceTimeout = setTimeout(() => {
 
-						this.eventBus.emit(`update-${this.lang}`, {
+						this.eventBus.emit('update-code', {
 							detail: {
 								target: this,
 								updatedData: update.state.doc.toString(),
@@ -145,6 +156,8 @@ export class CodeEditor extends LitElement {
 				this.eventBus = bus;
 			}
 		});
+		this.htmlLayout = '';
+		this.sassConfig = '';
 	}
 
 	render() {
