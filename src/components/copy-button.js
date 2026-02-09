@@ -24,16 +24,12 @@ export class CopyButton extends LitElement {
 	}
 
 	clickHandler() {
-		try {
-			this.isClicked = true;
-			this.eventBus.emit('request-copy', {
-				detail: {
-					lang: this.lang,
-				}
-			});
-		} catch (e) {
-			console.log(e.message);
-		}
+		this.isClicked = true;
+		this.eventBus.emit('request-copy', {
+			detail: {
+				lang: this.lang,
+			}
+		});
 
 		setTimeout(() => {
 			this.isClicked = false;

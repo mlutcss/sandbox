@@ -1,13 +1,14 @@
 import { LitElement, html } from 'lit';
-import { initialLayout, initialConfig, errorLayout, errorStyles } from '../assets/data/initial-code.js';
+import { errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
+import { currentCodeContext } from '../assets/scripts/currentCodeContext.js';
+
+import { events } from '../assets/data/events.js';
 
 export class CodePreview extends LitElement {
 	_markupPath = 'index.html';
-	htmlLayout = initialLayout;
-	sassConfig = initialConfig;
 
 	createRenderRoot() {
 		return this;
@@ -18,20 +19,34 @@ export class CodePreview extends LitElement {
 	};
 
 	async firstUpdated() {
-		this.eventBus.on('update-html', this.handleUpdate);
-		this.eventBus.on('update-sass', this.handleUpdate);
-		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
-		await jitEngine.init(['config.scss', initialConfig]);
-		this.mlutEngine = jitEngine;
-		this.iframeDoc = this.querySelector('iframe').contentDocument;
-		await this.updateCSS(initialLayout, initialConfig);
-		this.classList.remove('loader');
+		this.eventBus.on(events.updateCode, this.handleUpdate);
+		this.eventBus.on(events.editorInit, this.handleFirstUpdate);
+
+		if (this.currentCode.currentLayout) {
+			await this.initJitEngine(this.currentCode.currentLayout, this.currentCode.currentConfig);
+		}
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.eventBus.off('update-html', this.handleUpdate);
-		this.eventBus.off('update-sass', this.handleUpdate);
+		this.eventBus.off(events.updateCode, this.handleUpdate);
+	}
+
+	handleFirstUpdate = async (event) => {
+		if (!this.htmlLayout) {
+			await this.initJitEngine(event.detail.html, event.detail.sass);
+		}
+	};
+
+	async initJitEngine(layout, config) {
+		this.htmlLayout = layout;
+		this.sassConfig = config;
+		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
+		this.mlutEngine = jitEngine;
+		await this.mlutEngine.init(['config.scss', this.sassConfig]);
+		this.iframeDoc = this.querySelector('iframe').contentDocument;
+		await this.updateCSS(this.htmlLayout, this.sassConfig);
+		this.classList.remove('loader');
 	}
 
 	handleUpdate = async (event) => {
@@ -54,7 +69,7 @@ export class CodePreview extends LitElement {
 
 		if (this.cssStyles) {
 			this.fillIframe(layout, this.cssStyles);
-			this.eventBus.emit('update-css', {
+			this.eventBus.emit(events.updateCss, {
 				detail: {
 					target: this,
 					updatedData: this.cssStyles,
@@ -77,6 +92,12 @@ export class CodePreview extends LitElement {
 			context: eventBusContext,
 			callback: (bus) => {
 				this.eventBus = bus;
+			}
+		});
+		new ContextConsumer(this, {
+			context: currentCodeContext,
+			callback: (currentCode) => {
+				this.currentCode = currentCode;
 			}
 		});
 	}
