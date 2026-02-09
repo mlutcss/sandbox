@@ -1,6 +1,5 @@
 export class WebsiteClient {
 	apiUrl = "https://mlut.style/art-api/"
-	sourceId = ''
 
 	async getArt(path) {
 		return fetch(

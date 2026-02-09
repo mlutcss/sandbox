@@ -39,7 +39,6 @@ export class CodePreview extends LitElement {
 	};
 
 	async initJitEngine(layout, config) {
-		console.log('init started');
 		this.htmlLayout = layout;
 		this.sassConfig = config;
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');

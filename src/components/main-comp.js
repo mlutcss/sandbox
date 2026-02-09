@@ -11,7 +11,7 @@ const currentCode = {
 	currentConfig: ''
 };
 
-websiteClient.sourceId = (new URLSearchParams(window.location.search)).get('art');
+const artId = (new URLSearchParams(window.location.search)).get('art');
 
 export class MainComp extends LitElement {
 	_provider = new ContextProvider(this, {
@@ -28,8 +28,8 @@ export class MainComp extends LitElement {
 	checkpointConfig = '';
 
 	async firstUpdated() {
-		if (websiteClient.sourceId) {
-			await websiteClient.getArt(websiteClient.sourceId)
+		if (artId) {
+			await websiteClient.getArt(artId)
 				.then((res) => {
 					this.checkpointLayout = res;
 					this.checkpointConfig = fallbackConfig;
