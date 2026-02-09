@@ -10,10 +10,6 @@ export class ErrorMessage extends LitElement {
 		isShown: { type: Boolean }
 	};
 
-	firstUpdated() {
-
-	}
-
 	showError = (event) => {
 		this.text = errorTexts[event.detail.description];
 		this.isShown = true;

@@ -11,6 +11,8 @@ const currentCode = {
 	currentConfig: ''
 };
 
+websiteClient.sourceId = (new URLSearchParams(window.location.search)).get('art');
+
 export class MainComp extends LitElement {
 	_provider = new ContextProvider(this, {
 		context: eventBusContext,

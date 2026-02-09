@@ -1,6 +1,6 @@
 export class WebsiteClient {
 	apiUrl = "https://mlut.style/art-api/"
-	sourceId = (new URLSearchParams(window.location.search)).get('art')
+	sourceId = ''
 
 	async getArt(path) {
 		return fetch(

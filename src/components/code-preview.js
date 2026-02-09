@@ -33,10 +33,13 @@ export class CodePreview extends LitElement {
 	}
 
 	handleFirstUpdate = async (event) => {
-		await this.initJitEngine(event.detail.html, event.detail.sass);
+		if (!this.htmlLayout) {
+			await this.initJitEngine(event.detail.html, event.detail.sass);
+		}
 	};
 
 	async initJitEngine(layout, config) {
+		console.log('init started');
 		this.htmlLayout = layout;
 		this.sassConfig = config;
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
