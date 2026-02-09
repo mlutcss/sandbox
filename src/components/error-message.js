@@ -11,7 +11,7 @@ export class ErrorMessage extends LitElement {
 	};
 
 	firstUpdated() {
-		this.eventBus.on(events.showError, this.showError);
+
 	}
 
 	showError = (event) => {
@@ -31,6 +31,7 @@ export class ErrorMessage extends LitElement {
 		new ContextConsumer( this, {
 			context: eventBusContext,
 			callback: (bus) => {
+				bus.on(events.showError, this.showError);
 				this.eventBus = bus;
 			}
 		});

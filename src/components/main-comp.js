@@ -1,12 +1,10 @@
 import { LitElement } from 'lit';
 import { ContextProvider } from '@lit/context';
-import { createContext } from '@lit/context';
 import { eventBusContext, eventBus } from '/src/assets/scripts/eventBusContext.js';
+import { currentCodeContext } from '../assets/scripts/currentCodeContext.js';
 import { websiteClient } from '../assets/scripts/website-client.js';
 import { defaultConfig, defaultLayout, fallbackConfig } from '../assets/data/initial-code.js';
 import { events } from '../assets/data/events.js';
-
-export const currentCodeContext = createContext('currentCodeContext');
 
 const currentCode = {
 	currentLayout: '',
@@ -29,13 +27,12 @@ export class MainComp extends LitElement {
 
 	async firstUpdated() {
 		if (websiteClient.sourceId) {
-			await websiteClient.getInitialCode(websiteClient.sourceId)
+			await websiteClient.getArt(websiteClient.sourceId)
 				.then((res) => {
-					this.checkpointLayout = res.replaceAll('\n\n', '').trim();
+					this.checkpointLayout = res;
 					this.checkpointConfig = fallbackConfig;
 				})
 				.catch((e) => {
-					console.log(e);
 					this.checkpointLayout = defaultLayout;
 					this.checkpointConfig = defaultConfig;
 

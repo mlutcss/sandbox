@@ -12,7 +12,7 @@ import { css as langCSS } from '@codemirror/lang-css';
 import { sass as langSASS } from '@codemirror/lang-sass';
 
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
-import { currentCodeContext } from './main-comp.js';
+import { currentCodeContext } from '../assets/scripts/currentCodeContext.js';
 import { events } from '../assets/data/events.js';
 
 const customTheme = Prec.highest(EditorView.theme({

@@ -1,10 +1,8 @@
 export class WebsiteClient {
 	apiUrl = "https://mlut.style/art-api/"
-	urlParams = new URLSearchParams(window.location.search)
-	sourceId = this.urlParams.get('art')
+	sourceId = (new URLSearchParams(window.location.search)).get('art')
 
-	async getInitialCode(path) {
-		console.log(path)
+	async getArt(path) {
 		return fetch(
 			`${this.apiUrl + path}`,
 			{
@@ -18,6 +16,7 @@ export class WebsiteClient {
 
 			throw new Error(resp.status)
 		})
+		.then(resp => resp.replaceAll('\n\n', '').trim())
 	}
 }
 

@@ -3,7 +3,7 @@ import { errorLayout, errorStyles } from '../assets/data/initial-code.js';
 
 import { ContextConsumer } from '@lit/context';
 import { eventBusContext } from '../assets/scripts/eventBusContext.js';
-import { currentCodeContext } from './main-comp.js';
+import { currentCodeContext } from '../assets/scripts/currentCodeContext.js';
 
 import { events } from '../assets/data/events.js';
 
@@ -23,9 +23,7 @@ export class CodePreview extends LitElement {
 		this.eventBus.on(events.editorInit, this.handleFirstUpdate);
 
 		if (this.currentCode.currentLayout) {
-			this.htmlLayout = this.currentCode.currentLayout;
-			this.sassConfig = this.currentCode.currentConfig;
-			await this.initJitEngine();
+			await this.initJitEngine(this.currentCode.currentLayout, this.currentCode.currentConfig);
 		}
 	}
 
@@ -35,12 +33,12 @@ export class CodePreview extends LitElement {
 	}
 
 	handleFirstUpdate = async (event) => {
-		this.htmlLayout = event.detail.html;
-		this.sassConfig = event.detail.sass;
-		await this.initJitEngine();
+		await this.initJitEngine(event.detail.html, event.detail.sass);
 	};
 
-	async initJitEngine() {
+	async initJitEngine(layout, config) {
+		this.htmlLayout = layout;
+		this.sassConfig = config;
 		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
 		this.mlutEngine = jitEngine;
 		await this.mlutEngine.init(['config.scss', this.sassConfig]);
