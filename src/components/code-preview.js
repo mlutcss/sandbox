@@ -41,7 +41,7 @@ export class CodePreview extends LitElement {
 	async initJitEngine(layout, config) {
 		this.htmlLayout = layout;
 		this.sassConfig = config;
-		const { jitEngine } = await import('https://unpkg.com/@mlut/core@latest/dist/index.js');
+		const { jitEngine } = await import('https://unpkg.com/@mlut/web@2/dist/core.js');
 		this.mlutEngine = jitEngine;
 		await this.mlutEngine.init(['config.scss', this.sassConfig]);
 		this.iframeDoc = this.querySelector('iframe').contentDocument;
